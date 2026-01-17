@@ -191,7 +191,7 @@
             animation-name: magicalAppearRight;
         }
 
-        /* ANIMACIONES MÁS RÁPIDAS - UNA CADA 1.5 SEGUNDOS */
+        /* ANIMACIONES MÁS RÁPIDAS - UNA CADA 0.3 SEGUNDOS */
         .photo-frame:nth-child(1) { animation-delay: 0.3s; animation-play-state: running; }
         .photo-frame:nth-child(2) { animation-delay: 0.6s; animation-play-state: running; }
         .photo-frame:nth-child(3) { animation-delay: 0.9s; animation-play-state: running; }
@@ -254,7 +254,7 @@
 
         .photo-frame img {
             width: 100%;
-            height: 350px; /* AUMENTADA DE 300px a 350px */
+            height: 350px;
             object-fit: cover;
             object-position: center;
             display: block;
@@ -382,20 +382,46 @@
         .video-container {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%;
             height: 0;
+            padding-bottom: 56.25%;
             overflow: hidden;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.6);
         }
 
-        .video-container iframe {
+        .video-container video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             border: 0;
+        }
+
+        .video-controls {
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .video-controls button {
+            padding: 12px 25px;
+            margin: 5px;
+            font-size: 1.1rem;
+            background: #FFD700;
+            color: #000;
+            border: 3px solid #8B4513;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .video-controls button:hover {
+            background: #ffed4e;
+            transform: scale(1.05);
         }
 
         .message-box {
@@ -586,7 +612,7 @@
             }
 
             .photo-frame img {
-                height: 300px; /* Aumentado para móvil */
+                height: 300px;
             }
 
             /* Ajustes para móvil de las imágenes problemáticas */
@@ -679,11 +705,17 @@
             .cap-icon {
                 font-size: 1.8rem;
             }
+
+            .video-controls button {
+                padding: 10px 20px;
+                font-size: 1rem;
+                margin: 3px;
+            }
         }
 
         @media (max-width: 480px) {
             .photo-frame img {
-                height: 280px; /* Aumentado para móvil pequeño */
+                height: 280px;
             }
 
             .img-3, .img-9, .img-10, .img-12, .img-17, 
@@ -789,25 +821,10 @@
             .cap-icon {
                 font-size: 1.6rem;
             }
-        }
 
-        /* Animaciones más rápidas para dispositivos móviles */
-        @media (max-width: 768px) {
-            .photo-frame {
-                animation-duration: 0.6s !important;
-            }
-            
-            .photo-frame::before {
-                animation-duration: 0.6s !important;
-            }
-            
-            .photo-frame img {
-                animation-duration: 0.4s !important;
-            }
-            
-            .photo-caption,
-            .graduation-caption {
-                animation-duration: 0.4s !important;
+            .video-controls button {
+                padding: 8px 15px;
+                font-size: 0.9rem;
             }
         }
 
@@ -827,17 +844,15 @@
         </iframe>
     </div>
 
-    <!-- Audio de fondo usando YouTube (compatible con todos los navegadores) -->
-    <div style="display: none;">
-        <iframe 
-            id="audioPlayer"
-            src="https://www.youtube.com/embed/Vt2qAOXqrE8?autoplay=1&loop=1&playlist=Vt2qAOXqrE8&controls=0&enablejsapi=1"
-            allow="autoplay; encrypted-media">
-        </iframe>
-    </div>
+    <!-- Audio de fondo para cumple.mp4 -->
+    <audio id="cumpleAudio" loop style="display: none;">
+        <source src="cumple.mp4" type="video/mp4">
+        <source src="cumple.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
 
-    <!-- Control de audio -->
-    <div class="audio-control" id="audioControl" title="Control de música">
+    <!-- Control de audio principal -->
+    <div class="audio-control" id="audioControl" title="Control de música de cumple.mp4">
         🔊
     </div>
 
@@ -948,18 +963,17 @@
         <div class="video-section">
             <div class="video-title">🎮 VIDEO ESPECIAL MINECRAFT PARA EMMANUEL 🎮</div>
             <div class="video-container">
-                <!-- Video con audio - Solución mejorada -->
+                <!-- Video de YouTube -->
                 <iframe 
-                    id="presentationVideo"
                     src="https://www.youtube.com/embed/XJqx8nnppE0?rel=0&modestbranding=1&playsinline=1"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen>
                 </iframe>
             </div>
-            <div style="text-align: center; margin-top: 15px;">
-                <button id="unmuteVideo" style="padding: 12px 25px; font-size: 1.2rem; background: #FFD700; color: #000; border: 3px solid #8B4513; border-radius: 10px; cursor: pointer; font-weight: bold; display: none;">
-                    🔊 Activar Sonido del Video
-                </button>
+            <div class="video-controls">
+                <p style="color: #FFD700; margin-bottom: 10px; font-size: 1.1rem;">
+                    ⚠️ YouTube puede bloquear el sonido automático. Si no hay sonido, haz clic en el ícono 🔊 en el video.
+                </p>
             </div>
         </div>
 
@@ -992,75 +1006,51 @@
     </div>
 
     <script>
-        // Variables para control de audio/video
-        let audioPlaying = true;
+        // Variables para control de audio
+        let cumpleAudioPlaying = false;
         const audioControl = document.getElementById('audioControl');
-        const presentationVideo = document.getElementById('presentationVideo');
-        const unmuteVideoBtn = document.getElementById('unmuteVideo');
+        const cumpleAudio = document.getElementById('cumpleAudio');
         
-        // Cargar YouTube API
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        // Variables para control de video de YouTube
-        let videoPlayer;
-        
-        // Función para inicializar el reproductor de YouTube
-        function onYouTubeIframeAPIReady() {
-            videoPlayer = new YT.Player('presentationVideo', {
-                events: {
-                    'onReady': onVideoPlayerReady,
-                    'onStateChange': onVideoPlayerStateChange
-                }
-            });
-        }
-        
-        function onVideoPlayerReady(event) {
-            // El video está listo, pero YouTube bloquea el autoplay con audio
-            // Mostramos el botón para activar sonido
-            unmuteVideoBtn.style.display = 'inline-block';
-        }
-        
-        function onVideoPlayerStateChange(event) {
-            // Puedes agregar lógica adicional aquí si es necesario
-        }
-
-        // Control para activar sonido del video
-        unmuteVideoBtn.addEventListener('click', function() {
-            if (videoPlayer && videoPlayer.unMute) {
-                videoPlayer.unMute();
-                videoPlayer.playVideo();
-                unmuteVideoBtn.textContent = '🔊 Sonido Activado';
-                unmuteVideoBtn.style.background = '#4CAF50';
-                unmuteVideoBtn.style.color = '#fff';
-                
-                // Ocultar el botón después de 3 segundos
-                setTimeout(() => {
-                    unmuteVideoBtn.style.display = 'none';
-                }, 3000);
+        // Configurar el audio para que se reproduzca automáticamente después de interacción del usuario
+        document.addEventListener('click', function initAudio() {
+            if (!cumpleAudioPlaying) {
+                // Intentar reproducir el audio
+                cumpleAudio.play().then(() => {
+                    console.log('Audio cumple.mp4 reproducido automáticamente');
+                    cumpleAudioPlaying = true;
+                    audioControl.textContent = '🔊';
+                    audioControl.title = 'Pausar música de cumple.mp4';
+                }).catch(error => {
+                    console.log('El navegador requiere interacción explícita para el audio:', error);
+                    // Mostrar instrucción para el usuario
+                    setTimeout(() => {
+                        alert('Para escuchar la música especial, haz clic en el botón 🔊 en la esquina superior derecha.');
+                    }, 2000);
+                });
             }
-        });
+            // Solo ejecutar una vez
+            document.removeEventListener('click', initAudio);
+        }, { once: true });
 
-        // Control manual de audio de fondo
+        // Control manual del audio cumple.mp4
         audioControl.addEventListener('click', function() {
-            const audioFrame = document.getElementById('audioPlayer');
-            if (audioPlaying) {
-                // Pausar: ocultar el iframe (detiene la reproducción)
-                audioFrame.style.display = 'none';
-                audioPlaying = false;
+            if (cumpleAudioPlaying) {
+                cumpleAudio.pause();
+                cumpleAudioPlaying = false;
                 audioControl.textContent = '🔇';
-                audioControl.title = 'Reanudar música de fondo';
+                audioControl.title = 'Reproducir música de cumple.mp4';
             } else {
-                // Reanudar: mostrar el iframe (reinicia la reproducción)
-                audioFrame.style.display = 'block';
-                audioPlaying = true;
-                audioControl.textContent = '🔊';
-                audioControl.title = 'Pausar música de fondo';
-                // Recargar el iframe para reiniciar el audio
-                const src = audioFrame.src;
-                audioFrame.src = src;
+                cumpleAudio.play().then(() => {
+                    cumpleAudioPlaying = true;
+                    audioControl.textContent = '🔊';
+                    audioControl.title = 'Pausar música de cumple.mp4';
+                }).catch(error => {
+                    console.log('Error al reproducir audio:', error);
+                    // Solicitar interacción del usuario
+                    if (error.name === 'NotAllowedError') {
+                        alert('Por favor, haz clic en "Permitir" si tu navegador solicita permiso para reproducir audio.');
+                    }
+                });
             }
         });
 
@@ -1124,7 +1114,7 @@
                     behavior: 'smooth'
                 });
             }
-        }, 8000); // 8 segundos después de que comiencen las animaciones
+        }, 8000);
 
         // Mejorar la experiencia en dispositivos móviles
         document.addEventListener('touchstart', function() {}, {passive: true});
@@ -1133,13 +1123,18 @@
         window.addEventListener('load', function() {
             console.log('Página completamente cargada');
             
-            // Forzar la reproducción del video de presentación después de la interacción del usuario
-            document.addEventListener('click', function initVideo() {
-                if (videoPlayer && videoPlayer.playVideo) {
-                    videoPlayer.playVideo();
+            // Intentar reproducir el audio automáticamente después de cargar
+            setTimeout(() => {
+                if (!cumpleAudioPlaying) {
+                    cumpleAudio.play().then(() => {
+                        cumpleAudioPlaying = true;
+                        audioControl.textContent = '🔊';
+                        console.log('Audio reproducido automáticamente después de cargar');
+                    }).catch(error => {
+                        console.log('Autoplay bloqueado, esperando interacción del usuario');
+                    });
                 }
-                document.removeEventListener('click', initVideo);
-            });
+            }, 1000);
         });
 
         // Optimización para rendimiento
@@ -1147,10 +1142,35 @@
         window.addEventListener('scroll', function() {
             const st = window.pageYOffset || document.documentElement.scrollTop;
             if (Math.abs(st - lastScrollTop) > 50) {
-                // El usuario está desplazándose rápidamente
                 lastScrollTop = st;
             }
         }, {passive: true});
+
+        // Manejar errores de audio
+        cumpleAudio.addEventListener('error', function(e) {
+            console.error('Error cargando cumple.mp4:', e);
+            audioControl.style.background = 'rgba(255, 0, 0, 0.95)';
+            audioControl.title = 'Error cargando audio - Archivo no encontrado';
+            
+            // Verificar si el archivo existe
+            fetch('cumple.mp4')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Archivo no encontrado');
+                    }
+                })
+                .catch(error => {
+                    console.error('El archivo cumple.mp4 no se encuentra:', error);
+                    audioControl.textContent = '❌';
+                    audioControl.title = 'Error: Archivo cumple.mp4 no encontrado. Asegúrate de subirlo a GitHub.';
+                });
+        });
+
+        // Verificar cuando el audio se carga correctamente
+        cumpleAudio.addEventListener('loadeddata', function() {
+            console.log('Audio cumple.mp4 cargado correctamente');
+            audioControl.style.background = 'rgba(255, 215, 0, 0.95)';
+        });
     </script>
 </body>
 </html>
