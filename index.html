@@ -263,6 +263,19 @@
             animation-delay: inherit;
         }
 
+        /* CLASES ESPECÍFICAS PARA LAS FOTOS PROBLEMÁTICAS */
+        .img-3 { object-position: center 25% !important; }
+        .img-9 { object-position: center 20% !important; }
+        .img-10 { object-position: center 15% !important; }
+        .img-12 { object-position: center 25% !important; }
+        .img-17 { object-position: center 20% !important; }
+        .img-23 { object-position: center 15% !important; }
+        .img-24 { object-position: center 20% !important; }
+        .img-26 { object-position: center 25% !important; }
+        .img-29 { object-position: center 20% !important; }
+        .img-30 { object-position: center 15% !important; }
+        .img-35 { object-position: center 20% !important; }
+
         @keyframes imageReveal {
             0% {
                 opacity: 0;
@@ -553,6 +566,13 @@
                 height: 250px;
             }
 
+            /* Ajustes para móvil de las imágenes problemáticas */
+            .img-3, .img-9, .img-10, .img-12, .img-17, 
+            .img-23, .img-24, .img-26, .img-29, .img-30, 
+            .img-35 {
+                object-position: center 25% !important;
+            }
+
             .container {
                 padding: 10px;
             }
@@ -589,6 +609,13 @@
         @media (max-width: 480px) {
             .photo-frame img {
                 height: 200px;
+            }
+
+            /* Ajustes para móvil pequeño de las imágenes problemáticas */
+            .img-3, .img-9, .img-10, .img-12, .img-17, 
+            .img-23, .img-24, .img-26, .img-29, .img-30, 
+            .img-35 {
+                object-position: center 20% !important;
             }
 
             .photo-caption,
@@ -655,7 +682,8 @@
                 <div class="photo-caption">💝 Cuando eras tan pequeñito... ¡Qué tiernos recuerdos!</div>
             </div>
             <div class="photo-frame">
-                <img src="3.jpeg" alt="Emmanuel con mamá" loading="lazy">
+                <!-- Imagen 3 con ajuste específico -->
+                <img src="3.jpeg" alt="Emmanuel con mamá" loading="lazy" class="img-3">
                 <div class="photo-caption">👨‍👦 Compartiendo tus primeros meses de vida</div>
             </div>
             <div class="photo-frame">
@@ -667,11 +695,13 @@
                 <div class="photo-caption">🎨 Tu creatividad siempre brillando</div>
             </div>
             <div class="photo-frame">
-                <img src="9.jpeg" alt="Emmanuel en casa" loading="lazy">
+                <!-- Imagen 9 con ajuste específico -->
+                <img src="9.jpeg" alt="Emmanuel en casa" loading="lazy" class="img-9">
                 <div class="photo-caption">🏠 Los mejores momentos son en familia</div>
             </div>
             <div class="photo-frame">
-                <img src="10.jpeg" alt="Emmanuel pequeño" loading="lazy">
+                <!-- Imagen 10 con ajuste específico -->
+                <img src="10.jpeg" alt="Emmanuel pequeño" loading="lazy" class="img-10">
                 <div class="photo-caption">⭐ Cada día una nueva sonrisa</div>
             </div>
             <div class="photo-frame">
@@ -679,7 +709,8 @@
                 <div class="photo-caption">🎠 Disfrutando la vida al máximo</div>
             </div>
             <div class="photo-frame">
-                <img src="12.jpeg" alt="Emmanuel centro comercial" loading="lazy">
+                <!-- Imagen 12 con ajuste específico -->
+                <img src="12.jpeg" alt="Emmanuel centro comercial" loading="lazy" class="img-12">
                 <div class="photo-caption">🛍️ Momentos especiales de paseo</div>
             </div>
             <div class="photo-frame">
@@ -691,7 +722,8 @@
                 <div class="photo-caption">🚶 Creciendo paso a paso, siempre fuerte</div>
             </div>
             <div class="photo-frame">
-                <img src="17.jpeg" alt="Emmanuel sonriente" loading="lazy">
+                <!-- Imagen 17 con ajuste específico -->
+                <img src="17.jpeg" alt="Emmanuel sonriente" loading="lazy" class="img-17">
                 <div class="photo-caption">😊 Tu sonrisa ilumina cada día</div>
             </div>
             <div class="photo-frame">
@@ -703,27 +735,33 @@
                 <div class="photo-caption">🎂 Celebrando otro año de bendiciones</div>
             </div>
             <div class="photo-frame">
-                <img src="23.jpeg" alt="Emmanuel relajado" loading="lazy">
+                <!-- Imagen 23 con ajuste específico -->
+                <img src="23.jpeg" alt="Emmanuel relajado" loading="lazy" class="img-23">
                 <div class="photo-caption">😌 Disfrutando los momentos tranquilos</div>
             </div>
             <div class="photo-frame">
-                <img src="24.jpeg" alt="Emmanuel comiendo" loading="lazy">
+                <!-- Imagen 24 con ajuste específico -->
+                <img src="24.jpeg" alt="Emmanuel comiendo" loading="lazy" class="img-24">
                 <div class="photo-caption">🍽️ Siempre disfrutando la comida con alegría</div>
             </div>
             <div class="photo-frame">
-                <img src="26.jpeg" alt="Emmanuel cascada" loading="lazy">
+                <!-- Imagen 26 con ajuste específico -->
+                <img src="26.jpeg" alt="Emmanuel cascada" loading="lazy" class="img-26">
                 <div class="photo-caption">🌊 Aventuras en familia, recuerdos inolvidables</div>
             </div>
             <div class="photo-frame">
-                <img src="29.jpeg" alt="Emmanuel mall" loading="lazy">
+                <!-- Imagen 29 con ajuste específico -->
+                <img src="29.jpeg" alt="Emmanuel mall" loading="lazy" class="img-29">
                 <div class="photo-caption">🏢 Creando memorias en cada lugar</div>
             </div>
             <div class="photo-frame">
-                <img src="30.jpeg" alt="Emmanuel adolescente" loading="lazy">
+                <!-- Imagen 30 con ajuste específico -->
+                <img src="30.jpeg" alt="Emmanuel adolescente" loading="lazy" class="img-30">
                 <div class="photo-caption">💪 Convirtiéndote en un gran joven</div>
             </div>
             <div class="photo-frame">
-                <img src="35.jpeg" alt="Emmanuel actual" loading="lazy">
+                <!-- Imagen 35 con ajuste específico -->
+                <img src="35.jpeg" alt="Emmanuel actual" loading="lazy" class="img-35">
                 <div class="photo-caption">🌟 Hoy, un hombre increíble de 18 años. ¡Orgulloso de ti!</div>
             </div>
             <div class="photo-frame">
@@ -737,8 +775,9 @@
         <div class="video-section">
             <div class="video-title">🎮 VIDEO ESPECIAL MINECRAFT PARA EMMANUEL 🎮</div>
             <div class="video-container">
+                <!-- Video con audio habilitado -->
                 <iframe 
-                    src="https://www.youtube.com/embed/XJqx8nnppE0?rel=0&modestbranding=1"
+                    src="https://www.youtube.com/embed/XJqx8nnppE0?autoplay=1&mute=0&loop=1&playlist=XJqx8nnppE0&rel=0&modestbranding=1"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen>
                 </iframe>
