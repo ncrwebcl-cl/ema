@@ -134,22 +134,23 @@
             font-weight: bold;
         }
 
+        /* GALERÍA DE FOTOS - MÁS GRANDE */
         .photo-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
-            gap: 20px;
-            max-width: 1400px;
-            margin: 30px auto;
-            padding: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); /* CUADROS MÁS GRANDES */
+            gap: 25px; /* MÁS ESPACIO */
+            max-width: 1600px; /* ANCHO MÁXIMO AUMENTADO */
+            margin: 40px auto; /* MÁGIN SUPERIOR AUMENTADO */
+            padding: 15px;
             width: 100%;
         }
 
         .photo-frame {
             position: relative;
-            border: 5px solid #8B4513;
-            border-radius: 15px;
+            border: 6px solid #8B4513; /* BORDE MÁS GRUESO */
+            border-radius: 20px; /* ESQUINAS MÁS REDONDAS */
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* SOMBRA MÁS PRONUNCIADA */
             transition: transform 0.3s, box-shadow 0.3s;
             background: #FFD700;
             width: 100%;
@@ -161,7 +162,7 @@
             animation: slideUp 0.8s ease-out forwards;
         }
 
-        /* TIEMPO MUCHO MÁS RÁPIDO - Todas aparecen en 2 segundos */
+        /* TIEMPO DE APARICIÓN - 2 SEGUNDOS */
         .photo-frame:nth-child(1) { animation-delay: 0.1s; }
         .photo-frame:nth-child(2) { animation-delay: 0.2s; }
         .photo-frame:nth-child(3) { animation-delay: 0.3s; }
@@ -196,25 +197,25 @@
 
         @media (hover: hover) {
             .photo-frame:hover {
-                transform: scale(1.05) rotate(1deg);
-                box-shadow: 0 15px 40px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.4);
+                transform: scale(1.08) rotate(1deg); /* EFECTO HOVER MÁS PRONUNCIADO */
+                box-shadow: 0 20px 50px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.6);
                 z-index: 100;
             }
 
             .photo-frame:hover img {
-                transform: scale(1.1);
-                filter: brightness(1.1);
+                transform: scale(1.15); /* ZOOM MÁS PRONUNCIADO */
+                filter: brightness(1.15);
             }
         }
 
-        /* IMÁGENES ENFOCADAS EN ROSTROS - ALTURA FIJA */
+        /* IMÁGENES MÁS GRANDES */
         .photo-frame img {
             width: 100%;
-            height: 280px;
+            height: 340px; /* ALTURA AUMENTADA 60px MÁS */
             object-fit: cover;
             display: block;
             flex-shrink: 0;
-            transition: transform 0.3s, filter 0.3s;
+            transition: transform 0.5s, filter 0.5s;
         }
 
         /* AJUSTES INDIVIDUALES PARA CADA IMAGEN */
@@ -239,53 +240,64 @@
         .photo-frame:nth-child(19) img { object-position: center 20%; } /* 35.jpeg */
         .photo-frame:nth-child(20) img { object-position: center 30%; } /* grado.png */
 
+        /* TEXTO MÁS GRANDE Y CON MÁS ESPACIO */
         .photo-caption {
-            padding: 12px;
+            padding: 18px; /* MÁS PADDING */
             background: #FFD700;
             color: #000;
-            font-size: clamp(0.85rem, 2vw, 1.1rem);
+            font-size: clamp(1rem, 2.5vw, 1.4rem); /* LETRA MÁS GRANDE */
             font-weight: bold;
             text-align: center;
-            line-height: 1.5;
+            line-height: 1.6; /* MÁS ESPACIADO ENTRE LÍNEAS */
             word-wrap: break-word;
             flex-shrink: 0;
+            min-height: 90px; /* ALTURA MÍNIMA PARA EL TEXTO */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
+        /* TEXTO DE GRADUACIÓN MÁS GRANDE */
         .graduation-caption {
-            padding: 15px;
+            padding: 20px; /* MÁS PADDING */
             background: #FFD700;
             color: #000;
-            font-size: clamp(0.85rem, 2vw, 1.1rem);
+            font-size: clamp(1rem, 2.5vw, 1.4rem); /* LETRA MÁS GRANDE */
             font-weight: bold;
             text-align: center;
-            line-height: 1.6;
+            line-height: 1.7; /* MÁS ESPACIADO */
             word-wrap: break-word;
+            min-height: 100px; /* ALTURA MÍNIMA */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .cap-icon {
             display: inline-block;
-            font-size: 1.5rem;
+            font-size: 2rem; /* ÍCONO MÁS GRANDE */
             animation: bounce 2s infinite;
-            margin: 0 5px;
+            margin: 0 8px; /* MÁS ESPACIO */
         }
 
         .video-section {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 15px;
+            max-width: 1000px; /* ANCHO AUMENTADO */
+            margin: 50px auto; /* MÁRGIN AUMENTADO */
+            padding: 20px; /* MÁS PADDING */
             background: rgba(0,0,0,0.8);
-            border-radius: 20px;
-            border: 4px solid #FFD700;
+            border-radius: 25px; /* ESQUINAS MÁS REDONDAS */
+            border: 5px solid #FFD700; /* BORDE MÁS GRUESO */
             width: 100%;
         }
 
         .video-title {
-            font-size: clamp(1.3rem, 3.5vw, 2.5rem);
+            font-size: clamp(1.5rem, 4vw, 3rem); /* TÍTULO MÁS GRANDE */
             color: #FFD700;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px; /* MÁS ESPACIO */
             font-weight: bold;
-            text-shadow: 2px 2px 0 #000;
+            text-shadow: 3px 3px 0 #000; /* SOMBRA MÁS PRONUNCIADA */
             word-wrap: break-word;
         }
 
@@ -295,8 +307,8 @@
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 20px; /* ESQUINAS MÁS REDONDAS */
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6); /* SOMBRA MÁS PRONUNCIADA */
         }
 
         .video-container iframe {
@@ -309,56 +321,57 @@
         }
 
         .message-box {
-            max-width: 900px;
-            margin: 30px auto;
-            background: rgba(0,0,0,0.75);
-            padding: clamp(20px, 5vw, 40px);
-            border-radius: 20px;
+            max-width: 1000px; /* ANCHO AUMENTADO */
+            margin: 40px auto; /* MÁRGIN AUMENTADO */
+            background: rgba(0,0,0,0.8);
+            padding: clamp(25px, 6vw, 50px); /* MÁS PADDING */
+            border-radius: 25px; /* ESQUINAS MÁS REDONDAS */
             text-align: center;
-            border: 4px solid #FFD700;
+            border: 5px solid #FFD700; /* BORDE MÁS GRUESO */
             width: 100%;
         }
 
         .message-text {
-            font-size: clamp(0.9rem, 2.2vw, 1.3rem);
+            font-size: clamp(1.1rem, 2.8vw, 1.6rem); /* LETRA MÁS GRANDE */
             color: #fff;
-            line-height: 1.8;
+            line-height: 1.9; /* MÁS ESPACIADO */
             text-shadow: 2px 2px 0 #000;
             word-wrap: break-word;
         }
 
         .footer {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background: rgba(0,0,0,0.75);
-            border-radius: 15px;
+            max-width: 1000px; /* ANCHO AUMENTADO */
+            margin: 30px auto; /* MÁRGIN AUMENTADO */
+            padding: 25px; /* MÁS PADDING */
+            background: rgba(0,0,0,0.8);
+            border-radius: 20px; /* ESQUINAS MÁS REDONDAS */
             text-align: center;
-            border: 3px solid #FFD700;
+            border: 4px solid #FFD700; /* BORDE MÁS GRUESO */
         }
 
         .footer-text {
-            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            font-size: clamp(1rem, 2.5vw, 1.5rem); /* LETRA MÁS GRANDE */
             color: #FFD700;
             font-style: italic;
-            text-shadow: 1px 1px 2px #000;
+            text-shadow: 2px 2px 3px #000; /* SOMBRA MÁS PRONUNCIADA */
             font-weight: bold;
+            line-height: 1.6; /* MÁS ESPACIADO */
         }
 
         .balloon {
             position: fixed;
             bottom: -100px;
             animation: floatUp 8s infinite;
-            font-size: clamp(1.5rem, 3vw, 3rem);
-            filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.3));
+            font-size: clamp(1.8rem, 4vw, 3.5rem); /* GLOBOS MÁS GRANDES */
+            filter: drop-shadow(4px 4px 6px rgba(0,0,0,0.4)); /* SOMBRA MÁS PRONUNCIADA */
             z-index: 5;
             pointer-events: none;
         }
 
         .confetti {
             position: fixed;
-            width: 8px;
-            height: 8px;
+            width: 10px; /* MÁS GRANDE */
+            height: 10px; /* MÁS GRANDE */
             animation: fall 3s linear infinite;
             z-index: 5;
             pointer-events: none;
@@ -371,17 +384,17 @@
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-20px); } /* SALTO MÁS ALTO */
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.08); } /* PULSO MÁS PRONUNCIADO */
         }
 
         @keyframes scaleUp {
             0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.15) rotate(3deg); }
+            50% { transform: scale(1.2) rotate(5deg); } /* EFECTO MÁS PRONUNCIADO */
         }
 
         @keyframes floatUp {
@@ -409,73 +422,84 @@
         @media (max-width: 768px) {
             .photo-gallery {
                 grid-template-columns: 1fr;
-                gap: 18px;
-                padding: 10px;
+                gap: 22px; /* MÁS ESPACIO EN MÓVIL */
+                padding: 12px;
             }
             
             .photo-frame {
-                border: 4px solid #8B4513;
+                border: 5px solid #8B4513; /* BORDE LIGERAMENTE MÁS DELGADO */
             }
 
             .photo-frame img {
-                height: 250px;
+                height: 300px; /* ALTURA MANTENIDA PERO RESPONSIVE */
             }
 
             .container {
-                padding: 10px;
+                padding: 12px;
             }
 
             .header {
-                padding: 15px 5px;
+                padding: 18px 8px;
             }
 
             .message-box,
             .video-section {
-                margin: 20px 10px;
-                padding: 15px;
+                margin: 25px 12px;
+                padding: 18px;
             }
 
             .birthday-image {
-                width: 90%;
-                max-width: 300px;
+                width: 85%;
+                max-width: 320px; /* IMAGEN MÁS GRANDE EN MÓVIL */
             }
 
             .audio-control {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-                top: 15px;
-                right: 15px;
+                width: 55px;
+                height: 55px;
+                font-size: 1.8rem;
+                top: 18px;
+                right: 18px;
             }
 
             .footer {
-                margin: 20px 10px;
-                padding: 15px;
+                margin: 25px 12px;
+                padding: 20px;
+            }
+
+            .photo-caption,
+            .graduation-caption {
+                font-size: clamp(1.1rem, 3vw, 1.3rem); /* LETRA MÁS GRANDE EN MÓVIL */
+                padding: 16px;
             }
         }
 
         @media (max-width: 480px) {
             .photo-frame img {
-                height: 220px;
+                height: 280px; /* ALTURA MANTENIDA */
             }
 
             .photo-caption,
             .graduation-caption {
-                padding: 10px;
-                font-size: 0.8rem;
+                padding: 14px;
+                font-size: 1rem;
+                min-height: 80px;
             }
 
             .video-section {
-                padding: 10px;
+                padding: 15px;
             }
 
             .balloon {
-                font-size: 2rem;
+                font-size: 2.2rem; /* GLOBOS MÁS GRANDES EN MÓVIL */
             }
 
             .confetti {
-                width: 6px;
-                height: 6px;
+                width: 8px;
+                height: 8px;
+            }
+
+            .cap-icon {
+                font-size: 1.8rem;
             }
         }
 
@@ -713,7 +737,7 @@
         // Crear globos
         const colors = ['🎈', '🎉', '🎊', '⭐', '✨'];
         const isMobile = window.innerWidth < 768;
-        const balloonCount = isMobile ? 15 : 25;
+        const balloonCount = isMobile ? 18 : 30; /* MÁS GLOBOS */
         
         for (let i = 0; i < balloonCount; i++) {
             const balloon = document.createElement('div');
@@ -727,7 +751,7 @@
 
         // Crear confetti
         const confettiColors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7', '#dfe6e9'];
-        const confettiCount = isMobile ? 20 : 50;
+        const confettiCount = isMobile ? 25 : 60; /* MÁS CONFETTI */
         
         for (let i = 0; i < confettiCount; i++) {
             const confetti = document.createElement('div');
@@ -763,7 +787,7 @@
                     img.style.alignItems = 'center';
                     img.style.justifyContent = 'center';
                     img.style.color = '#000';
-                    img.style.fontSize = '14px';
+                    img.style.fontSize = '16px'; /* TEXTO MÁS GRANDE */
                     img.style.fontWeight = 'bold';
                 }
             });
