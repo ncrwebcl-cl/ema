@@ -212,6 +212,7 @@
         .photo-frame:nth-child(18) { animation-delay: 5.4s; animation-play-state: running; }
         .photo-frame:nth-child(19) { animation-delay: 5.7s; animation-play-state: running; }
         .photo-frame:nth-child(20) { animation-delay: 6.0s; animation-play-state: running; }
+        .photo-frame:nth-child(21) { animation-delay: 6.3s; animation-play-state: running; }
 
         .photo-frame::before {
             content: '';
@@ -351,6 +352,45 @@
             border-top: 3px solid #8B4513;
         }
 
+        /* CUADRO DE DEDICATORIA ESPECIAL */
+        .dedication-box {
+            padding: 25px;
+            background: #FFD700;
+            color: #000;
+            font-size: clamp(1.3rem, 3.2vw, 1.6rem);
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.8;
+            word-wrap: break-word;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 8px solid #8B4513;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+            animation: magicalAppear 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            animation-delay: 6.6s;
+            animation-play-state: running;
+        }
+
+        .dedication-box .heart {
+            font-size: clamp(2rem, 4vw, 3rem);
+            animation: pulse 1.5s infinite;
+            margin-bottom: 15px;
+        }
+
+        .dedication-box .signature {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            margin-top: 15px;
+            color: #8B4513;
+            font-weight: bold;
+        }
+
         .cap-icon {
             display: inline-block;
             font-size: 2rem;
@@ -396,32 +436,6 @@
             width: 100%;
             height: 100%;
             border: 0;
-        }
-
-        .video-controls {
-            text-align: center;
-            margin-top: 15px;
-            padding: 10px;
-            background: rgba(255, 215, 0, 0.1);
-            border-radius: 10px;
-        }
-
-        .video-controls button {
-            padding: 12px 25px;
-            margin: 5px;
-            font-size: 1.1rem;
-            background: #FFD700;
-            color: #000;
-            border: 3px solid #8B4513;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .video-controls button:hover {
-            background: #ffed4e;
-            transform: scale(1.05);
         }
 
         .message-box {
@@ -640,6 +654,23 @@
                 min-height: 90px;
             }
 
+            .dedication-box {
+                padding: 20px;
+                font-size: clamp(1.1rem, 2.8vw, 1.4rem);
+                min-height: 160px;
+                border: 6px solid #8B4513;
+            }
+
+            .dedication-box .heart {
+                font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+                margin-bottom: 10px;
+            }
+
+            .dedication-box .signature {
+                font-size: clamp(1rem, 2.2vw, 1.2rem);
+                margin-top: 10px;
+            }
+
             .container {
                 padding: 15px 10px;
             }
@@ -705,12 +736,6 @@
             .cap-icon {
                 font-size: 1.8rem;
             }
-
-            .video-controls button {
-                padding: 10px 20px;
-                font-size: 1rem;
-                margin: 3px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -737,6 +762,23 @@
                 padding: 15px;
                 font-size: 1.2rem;
                 min-height: 80px;
+            }
+
+            .dedication-box {
+                padding: 15px;
+                font-size: 1.1rem;
+                min-height: 140px;
+                border: 5px solid #8B4513;
+            }
+
+            .dedication-box .heart {
+                font-size: 1.8rem;
+                margin-bottom: 8px;
+            }
+
+            .dedication-box .signature {
+                font-size: 1rem;
+                margin-top: 8px;
             }
 
             .photo-gallery {
@@ -820,11 +862,6 @@
 
             .cap-icon {
                 font-size: 1.6rem;
-            }
-
-            .video-controls button {
-                padding: 8px 15px;
-                font-size: 0.9rem;
             }
         }
 
@@ -958,22 +995,33 @@
                     <span class="cap-icon">🎓</span> Este será otro gran logro en tu vida, Emmanuel. <span class="cap-icon">🎓</span>
                 </div>
             </div>
+            
+            <!-- CUADRO DE DEDICATORIA ESPECIAL -->
+            <div class="dedication-box">
+                <div class="heart">💙</div>
+                <div>Mi querido Emmanuel,</div>
+                <div>aunque no eres mi hijo de sangre,</div>
+                <div>eres mi hijo del corazón.</div>
+                <div>Te quiero muchísimo y estoy</div>
+                <div>muy orgulloso de ti.</div>
+                <div class="signature">Con todo mi cariño,<br>Norbey</div>
+            </div>
         </div>
 
         <div class="video-section">
-            <div class="video-title">🎮 VIDEO ESPECIAL MINECRAFT PARA EMMANUEL 🎮</div>
+            <div class="video-title">🎥 VIDEO DE CUMPLEAÑOS FELIZ PARA EMMANUEL 🎥</div>
             <div class="video-container">
-                <!-- Video de YouTube -->
-                <iframe 
-                    src="https://www.youtube.com/embed/XJqx8nnppE0?rel=0&modestbranding=1&playsinline=1"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+                <!-- Video cumple.mp4 -->
+                <video id="birthdayVideo" controls playsinline>
+                    <source src="cumple.mp4" type="video/mp4">
+                    <source src="cumple.webm" type="video/webm">
+                    Tu navegador no soporta el elemento de video.
+                </video>
             </div>
-            <div class="video-controls">
-                <p style="color: #FFD700; margin-bottom: 10px; font-size: 1.1rem;">
-                    ⚠️ YouTube puede bloquear el sonido automático. Si no hay sonido, haz clic en el ícono 🔊 en el video.
-                </p>
+            <div style="text-align: center; margin-top: 15px;">
+                <button id="playVideoBtn" style="padding: 12px 25px; font-size: 1.2rem; background: #FFD700; color: #000; border: 3px solid #8B4513; border-radius: 10px; cursor: pointer; font-weight: bold;">
+                    ▶️ Reproducir Video de Cumpleaños
+                </button>
             </div>
         </div>
 
@@ -1010,6 +1058,8 @@
         let cumpleAudioPlaying = false;
         const audioControl = document.getElementById('audioControl');
         const cumpleAudio = document.getElementById('cumpleAudio');
+        const birthdayVideo = document.getElementById('birthdayVideo');
+        const playVideoBtn = document.getElementById('playVideoBtn');
         
         // Configurar el audio para que se reproduzca automáticamente después de interacción del usuario
         document.addEventListener('click', function initAudio() {
@@ -1022,10 +1072,6 @@
                     audioControl.title = 'Pausar música de cumple.mp4';
                 }).catch(error => {
                     console.log('El navegador requiere interacción explícita para el audio:', error);
-                    // Mostrar instrucción para el usuario
-                    setTimeout(() => {
-                        alert('Para escuchar la música especial, haz clic en el botón 🔊 en la esquina superior derecha.');
-                    }, 2000);
                 });
             }
             // Solo ejecutar una vez
@@ -1046,12 +1092,34 @@
                     audioControl.title = 'Pausar música de cumple.mp4';
                 }).catch(error => {
                     console.log('Error al reproducir audio:', error);
-                    // Solicitar interacción del usuario
-                    if (error.name === 'NotAllowedError') {
-                        alert('Por favor, haz clic en "Permitir" si tu navegador solicita permiso para reproducir audio.');
-                    }
                 });
             }
+        });
+
+        // Control para reproducir el video de cumpleaños
+        playVideoBtn.addEventListener('click', function() {
+            birthdayVideo.play().then(() => {
+                playVideoBtn.textContent = '⏸️ Video en Reproducción';
+                playVideoBtn.style.background = '#4CAF50';
+                playVideoBtn.style.color = '#fff';
+                
+                // Ocultar botón después de 3 segundos
+                setTimeout(() => {
+                    playVideoBtn.style.display = 'none';
+                }, 3000);
+            }).catch(error => {
+                console.log('Error al reproducir video:', error);
+                playVideoBtn.textContent = '❌ Error al Reproducir';
+                playVideoBtn.style.background = '#ff6b6b';
+            });
+        });
+
+        // Cuando el video termine, mostrar el botón de nuevo
+        birthdayVideo.addEventListener('ended', function() {
+            playVideoBtn.style.display = 'inline-block';
+            playVideoBtn.textContent = '🔄 Reproducir Nuevamente';
+            playVideoBtn.style.background = '#FFD700';
+            playVideoBtn.style.color = '#000';
         });
 
         // Crear globos
@@ -1116,9 +1184,6 @@
             }
         }, 8000);
 
-        // Mejorar la experiencia en dispositivos móviles
-        document.addEventListener('touchstart', function() {}, {passive: true});
-
         // Asegurar que las imágenes se carguen correctamente
         window.addEventListener('load', function() {
             console.log('Página completamente cargada');
@@ -1137,40 +1202,41 @@
             }, 1000);
         });
 
-        // Optimización para rendimiento
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', function() {
-            const st = window.pageYOffset || document.documentElement.scrollTop;
-            if (Math.abs(st - lastScrollTop) > 50) {
-                lastScrollTop = st;
-            }
-        }, {passive: true});
-
-        // Manejar errores de audio
+        // Manejar errores de audio/video
         cumpleAudio.addEventListener('error', function(e) {
-            console.error('Error cargando cumple.mp4:', e);
-            audioControl.style.background = 'rgba(255, 0, 0, 0.95)';
-            audioControl.title = 'Error cargando audio - Archivo no encontrado';
-            
-            // Verificar si el archivo existe
-            fetch('cumple.mp4')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Archivo no encontrado');
-                    }
-                })
-                .catch(error => {
-                    console.error('El archivo cumple.mp4 no se encuentra:', error);
-                    audioControl.textContent = '❌';
-                    audioControl.title = 'Error: Archivo cumple.mp4 no encontrado. Asegúrate de subirlo a GitHub.';
-                });
+            console.error('Error cargando cumple.mp4 como audio:', e);
         });
 
-        // Verificar cuando el audio se carga correctamente
-        cumpleAudio.addEventListener('loadeddata', function() {
-            console.log('Audio cumple.mp4 cargado correctamente');
-            audioControl.style.background = 'rgba(255, 215, 0, 0.95)';
+        birthdayVideo.addEventListener('error', function(e) {
+            console.error('Error cargando cumple.mp4 como video:', e);
+            playVideoBtn.textContent = '❌ Error Cargando Video';
+            playVideoBtn.style.background = '#ff6b6b';
+            playVideoBtn.disabled = true;
         });
+
+        // Cuando el video se carga correctamente
+        birthdayVideo.addEventListener('loadeddata', function() {
+            console.log('Video cumple.mp4 cargado correctamente');
+            playVideoBtn.disabled = false;
+        });
+
+        // Reproducir video automáticamente cuando el usuario hace scroll a esa sección
+        let videoAutoPlayed = false;
+        window.addEventListener('scroll', function() {
+            const videoSection = document.querySelector('.video-section');
+            if (videoSection && !videoAutoPlayed) {
+                const rect = videoSection.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.8 && rect.bottom > 0) {
+                    // El video está visible en la pantalla
+                    birthdayVideo.play().then(() => {
+                        videoAutoPlayed = true;
+                        playVideoBtn.style.display = 'none';
+                    }).catch(error => {
+                        console.log('No se pudo reproducir automáticamente:', error);
+                    });
+                }
+            }
+        }, { passive: true });
     </script>
 </body>
 </html>
