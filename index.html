@@ -20,7 +20,7 @@
             position: relative;
         }
 
-        /* Video de fondo */
+        /* Video de fondo con YouTube - Mejorado para compatibilidad */
         .video-background {
             position: fixed;
             top: 0;
@@ -29,20 +29,40 @@
             height: 100%;
             z-index: 1;
             overflow: hidden;
+            pointer-events: none;
         }
 
-        .video-background video {
+        .video-background iframe {
             position: absolute;
             top: 50%;
             left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
+            width: 100vw;
+            height: 56.25vw;
+            min-height: 100vh;
+            min-width: 177.77vh;
             transform: translate(-50%, -50%);
-            object-fit: cover;
-            opacity: 0.4;
+            opacity: 0.3;
             filter: blur(2px);
+        }
+
+        /* Fallback si el video no carga */
+        .video-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(87, 160, 211, 0.05) 0%, transparent 100%);
+            animation: bgPulse 10s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
         }
 
         .audio-control {
@@ -325,14 +345,23 @@
             word-wrap: break-word;
         }
 
-        .main-video {
+        .video-container {
+            position: relative;
             width: 100%;
-            max-width: 100%;
-            height: auto;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: block;
-            margin: 0 auto;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
         .message-box {
@@ -588,18 +617,24 @@
     </style>
 </head>
 <body>
-    <!-- Video de fondo -->
+    <!-- Video de fondo con YouTube -->
     <div class="video-background">
-        <video autoplay muted loop playsinline id="bgVideo">
-            <source src="video_Minecraft.mp4" type="video/mp4">
-        </video>
+        <iframe 
+            id="bgVideo"
+            src="https://www.youtube.com/embed/XJqx8nnppE0?autoplay=1&mute=1&loop=1&playlist=XJqx8nnppE0&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+        </iframe>
     </div>
 
-    <!-- Audio de fondo -->
-    <audio id="bgAudio" loop>
-        <source src="cumple.mp4" type="audio/mp4">
-        <source src="cumple.mp3" type="audio/mpeg">
-    </audio>
+    <!-- Audio de fondo usando YouTube (compatible con todos los navegadores) -->
+    <div style="display: none;">
+        <iframe 
+            id="audioPlayer"
+            src="https://www.youtube.com/embed/Vt2qAOXqrE8?autoplay=1&loop=1&playlist=Vt2qAOXqrE8&controls=0&enablejsapi=1"
+            allow="autoplay; encrypted-media">
+        </iframe>
+    </div>
 
     <!-- Control de audio -->
     <div class="audio-control" id="audioControl" title="Control de música">
@@ -701,10 +736,13 @@
 
         <div class="video-section">
             <div class="video-title">🎮 VIDEO ESPECIAL MINECRAFT PARA EMMANUEL 🎮</div>
-            <video class="main-video" controls playsinline preload="metadata">
-                <source src="video_Minecraft.mp4" type="video/mp4">
-                Tu navegador no soporta el video.
-            </video>
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/XJqx8nnppE0?rel=0&modestbranding=1"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
 
         <div class="message-box">
@@ -736,98 +774,42 @@
     </div>
 
     <script>
-        const bgAudio = document.getElementById('bgAudio');
+        // Variables para control de audio/video
+        let audioPlaying = true;
         const audioControl = document.getElementById('audioControl');
-        const mainVideo = document.querySelector('.main-video');
-        const bgVideo = document.getElementById('bgVideo');
-        let audioPlaying = false;
-        let audioAttempted = false;
-
-        // Función para iniciar el audio
-        function startAudio() {
-            if (!audioAttempted) {
-                audioAttempted = true;
-                bgAudio.play().then(() => {
-                    audioPlaying = true;
-                    audioControl.textContent = '🔊';
-                    audioControl.title = 'Pausar música';
-                    console.log('Audio reproduciendo automáticamente');
-                }).catch(err => {
-                    console.log('Autoplay bloqueado por el navegador, esperando interacción');
-                    audioControl.textContent = '🔊';
-                    audioControl.title = 'Pausar música';
-                });
-            }
+        
+        // Control de audio usando YouTube API
+        let player;
+        function onYouTubeIframeAPIReady() {
+            // Intentar inicializar el reproductor si la API está lista
         }
 
-        // Intentar reproducir inmediatamente
-        startAudio();
+        // Cargar YouTube API
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        // Intentar también cuando la página cargue completamente
-        window.addEventListener('load', startAudio);
-
-        // Si el navegador bloquea, intentar con cualquier interacción del usuario
-        function enableAudioOnInteraction() {
-            if (!audioPlaying) {
-                bgAudio.play().then(() => {
-                    audioPlaying = true;
-                    audioControl.textContent = '🔊';
-                    console.log('Audio activado con interacción del usuario');
-                }).catch(() => {});
-            }
-            // Remover los listeners después del primer intento exitoso
-            document.removeEventListener('click', enableAudioOnInteraction);
-            document.removeEventListener('touchstart', enableAudioOnInteraction);
-            document.removeEventListener('keydown', enableAudioOnInteraction);
-        }
-
-        document.addEventListener('click', enableAudioOnInteraction);
-        document.addEventListener('touchstart', enableAudioOnInteraction);
-        document.addEventListener('keydown', enableAudioOnInteraction);
-
-        // Control manual de audio - SOLO para pausar/reanudar
-        function toggleAudio() {
+        // Control manual de audio
+        audioControl.addEventListener('click', function() {
+            const audioFrame = document.getElementById('audioPlayer');
             if (audioPlaying) {
-                bgAudio.pause();
+                // Pausar: ocultar el iframe (detiene la reproducción)
+                audioFrame.style.display = 'none';
                 audioPlaying = false;
                 audioControl.textContent = '🔇';
                 audioControl.title = 'Reanudar música';
             } else {
-                bgAudio.play().then(() => {
-                    audioPlaying = true;
-                    audioControl.textContent = '🔊';
-                    audioControl.title = 'Pausar música';
-                }).catch(err => {
-                    console.log('Error al reproducir audio:', err);
-                });
+                // Reanudar: mostrar el iframe (reinicia la reproducción)
+                audioFrame.style.display = 'block';
+                audioPlaying = true;
+                audioControl.textContent = '🔊';
+                audioControl.title = 'Pausar música';
+                // Recargar el iframe para reiniciar el audio
+                const src = audioFrame.src;
+                audioFrame.src = src;
             }
-        }
-
-        audioControl.addEventListener('click', toggleAudio);
-
-        // Pausar música cuando se reproduce el video principal
-        if (mainVideo) {
-            mainVideo.addEventListener('play', function() {
-                if (audioPlaying) {
-                    bgAudio.pause();
-                    audioControl.textContent = '🔇';
-                }
-            });
-
-            mainVideo.addEventListener('pause', function() {
-                if (audioPlaying && !mainVideo.ended) {
-                    bgAudio.play();
-                    audioControl.textContent = '🔊';
-                }
-            });
-
-            mainVideo.addEventListener('ended', function() {
-                if (audioPlaying) {
-                    bgAudio.play();
-                    audioControl.textContent = '🔊';
-                }
-            });
-        }
+        });
 
         // Crear globos
         const colors = ['🎈', '🎉', '🎊', '⭐', '✨'];
