@@ -185,31 +185,7 @@
         .photo-frame:nth-child(19) { animation-delay: 1.9s; }
         .photo-frame:nth-child(20) { animation-delay: 2.0s; }
 
-        /* MARCO ESPECIAL PARA LA FOTO 35 */
-        .photo-frame:nth-child(19) {
-            border: 8px solid #FF6B6B;
-            box-shadow: 
-                0 0 30px #FF6B6B,
-                0 15px 40px rgba(255, 107, 107, 0.6), 
-                0 0 50px rgba(255, 107, 107, 0.4);
-            animation: photo35Glow 2s infinite alternate;
-        }
-
-        @keyframes photo35Glow {
-            0% {
-                box-shadow: 
-                    0 0 20px #FF6B6B,
-                    0 15px 40px rgba(255, 107, 107, 0.6), 
-                    0 0 40px rgba(255, 107, 107, 0.4);
-            }
-            100% {
-                box-shadow: 
-                    0 0 40px #FF6B6B,
-                    0 20px 50px rgba(255, 107, 107, 0.8), 
-                    0 0 60px rgba(255, 107, 107, 0.6);
-            }
-        }
-
+        /* TODAS LAS FOTOS IGUALES - INCLUYENDO LA 35 */
         @keyframes slideUp {
             0% {
                 opacity: 0;
@@ -232,33 +208,20 @@
                 transform: scale(1.1);
                 filter: brightness(1.1);
             }
-
-            .photo-frame:nth-child(19):hover {
-                transform: scale(1.08) rotate(2deg);
-                box-shadow: 
-                    0 25px 60px rgba(255, 107, 107, 0.9), 
-                    0 0 70px rgba(255, 107, 107, 0.7);
-            }
         }
 
         /* MEJORADO: Todas las imágenes se verán completas */
         .photo-frame img {
             width: 100%;
-            height: 380px; /* Aumentado para ver mejor las caras */
+            height: 380px;
             object-fit: cover;
-            object-position: center top; /* Asegura que se vean los rostros */
+            object-position: center top;
             display: block;
             flex-shrink: 0;
             transition: transform 0.5s, filter 0.5s;
         }
 
-        /* Ajustes específicos para imágenes verticales */
-        .photo-frame:nth-child(19) img { 
-            object-position: center center; /* Centrado para foto especial */
-            height: 400px; /* Un poco más alta para la foto especial */
-        }
-
-        /* Indicador de clic */
+        /* Indicador de clic - OJO */
         .click-indicator {
             position: absolute;
             top: 10px;
@@ -284,18 +247,6 @@
             background: rgba(255, 215, 0, 1);
         }
 
-        .photo-frame:nth-child(19) .click-indicator {
-            background: rgba(255, 107, 107, 0.9);
-            color: white;
-            font-size: 1.8rem;
-            animation: pulseIndicator 1.5s infinite;
-        }
-
-        @keyframes pulseIndicator {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
         .photo-caption {
             padding: 18px;
             background: #FFD700;
@@ -310,52 +261,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-        }
-
-        .photo-caption::before {
-            content: '🖱️ Haz clic para ampliar';
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #8B4513;
-            color: #FFD700;
-            padding: 5px 15px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-            white-space: nowrap;
-        }
-
-        .photo-frame:hover .photo-caption::before {
-            opacity: 1;
-        }
-
-        .photo-frame:nth-child(19) .photo-caption {
-            background: linear-gradient(45deg, #FF6B6B, #FF3333);
-            color: #FFF;
-            font-size: clamp(1.1rem, 2.8vw, 1.6rem);
-            font-weight: bold;
-            border-top: 4px solid #FFD700;
-            animation: captionPulse 2s infinite alternate;
-        }
-
-        @keyframes captionPulse {
-            0% {
-                background: linear-gradient(45deg, #FF6B6B, #FF3333);
-            }
-            100% {
-                background: linear-gradient(45deg, #FF3333, #FF6B6B);
-            }
-        }
-
-        .photo-frame:nth-child(19) .photo-caption::before {
-            content: '🌟 ¡Foto Especial 18 Años! 🖱️';
-            background: #FFD700;
-            color: #FF6B6B;
-            font-weight: bold;
         }
 
         /* FOTO AMPLIADA (OVERLAY) */
@@ -440,62 +345,7 @@
             font-weight: bold;
         }
 
-        /* INSTRUCCIONES MEJORADAS */
-        .instructions {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 15px;
-            background: rgba(255, 215, 0, 0.9);
-            border-radius: 15px;
-            border: 3px solid #8B4513;
-            text-align: center;
-            color: #000;
-            font-weight: bold;
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            animation: pulseInstructions 3s infinite;
-        }
-
-        @keyframes pulseInstructions {
-            0%, 100% { 
-                transform: scale(1);
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            }
-            50% { 
-                transform: scale(1.02);
-                box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            }
-        }
-
-        .instruction-icon {
-            display: inline-block;
-            animation: bounce 1s infinite;
-            margin: 0 5px;
-        }
-
-        /* Resto del CSS se mantiene igual */
-        .graduation-caption {
-            padding: 20px;
-            background: #FFD700;
-            color: #000;
-            font-size: clamp(1rem, 2.5vw, 1.4rem);
-            font-weight: bold;
-            text-align: center;
-            line-height: 1.7;
-            word-wrap: break-word;
-            min-height: 100px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cap-icon {
-            display: inline-block;
-            font-size: 2rem;
-            animation: bounce 2s infinite;
-            margin: 0 8px;
-        }
-
+        /* SECCIÓN DE VIDEO - CON VIDEO QUE INICIA AL LLEGAR ALLÍ */
         .video-section {
             max-width: 1000px;
             margin: 50px auto;
@@ -504,6 +354,7 @@
             border-radius: 25px;
             border: 5px solid #FFD700;
             width: 100%;
+            position: relative;
         }
 
         .video-title {
@@ -533,6 +384,50 @@
             width: 100%;
             height: 100%;
             border: 0;
+        }
+
+        /* AUDIO SILENCIADO HASTA LLEGAR AL VIDEO */
+        .audio-muted-notice {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 107, 107, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .audio-muted-notice.show {
+            opacity: 1;
+        }
+
+        /* Resto del CSS se mantiene igual */
+        .graduation-caption {
+            padding: 20px;
+            background: #FFD700;
+            color: #000;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.7;
+            word-wrap: break-word;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cap-icon {
+            display: inline-block;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            margin: 0 8px;
         }
 
         .message-box {
@@ -641,20 +536,8 @@
                 padding: 12px;
             }
             
-            .photo-frame {
-                border: 5px solid #8B4513;
-            }
-
-            .photo-frame:nth-child(19) {
-                border: 6px solid #FF6B6B;
-            }
-
             .photo-frame img {
-                height: 350px; /* Ajustado para móvil */
-            }
-
-            .photo-frame:nth-child(19) img {
-                height: 370px; /* Un poco más alta en móvil */
+                height: 350px;
             }
 
             .click-indicator {
@@ -662,25 +545,11 @@
                 height: 35px;
                 font-size: 1.3rem;
             }
-
-            .photo-frame:nth-child(19) .click-indicator {
-                font-size: 1.5rem;
-            }
-
-            .photo-caption::before {
-                font-size: 0.7rem;
-                top: -20px;
-                padding: 4px 10px;
-            }
         }
 
         @media (max-width: 480px) {
             .photo-frame img {
                 height: 320px;
-            }
-
-            .photo-frame:nth-child(19) img {
-                height: 340px;
             }
 
             .click-indicator {
@@ -690,17 +559,11 @@
                 top: 8px;
                 right: 8px;
             }
-
-            .photo-frame:nth-child(19) .click-indicator {
-                width: 35px;
-                height: 35px;
-                font-size: 1.3rem;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Video de fondo -->
+    <!-- Video de fondo SILENCIADO -->
     <div class="video-background">
         <iframe 
             src="https://www.youtube.com/embed/XJqx8nnppE0?autoplay=1&mute=1&loop=1&playlist=XJqx8nnppE0&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
@@ -709,8 +572,8 @@
         </iframe>
     </div>
 
-    <!-- Audio de fondo - SE REPRODUCE AUTOMÁTICAMENTE -->
-    <audio id="bgAudio" loop autoplay>
+    <!-- Audio de fondo - INICIALMENTE SILENCIADO -->
+    <audio id="bgAudio" loop>
         <source src="cumple.mp3" type="audio/mpeg">
         <source src="cumple.mp4" type="audio/mp4">
         <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3" type="audio/mpeg">
@@ -719,8 +582,8 @@
     </audio>
 
     <!-- Control de audio -->
-    <div class="audio-control" id="audioControl" title="Control de música">
-        🔊
+    <div class="audio-control" id="audioControl" title="La música iniciará al llegar al video especial">
+        🔇
     </div>
 
     <!-- Overlay para foto ampliada -->
@@ -740,16 +603,7 @@
             <div class="age-display">18 AÑOS</div>
         </div>
 
-        <!-- Instrucciones claras -->
-        <div class="instructions">
-            <span class="instruction-icon">👉</span> 
-            ¡Haz clic en cualquier foto para verla más grande! 
-            <span class="instruction-icon">👆</span>
-            <br>
-            <small>La foto con marco rojo es especial para tus 18 años</small>
-        </div>
-
-        <!-- Galería de fotos MEJORADA -->
+        <!-- Galería de fotos SIMPLIFICADA -->
         <div class="photo-gallery">
             <div class="photo-frame">
                 <div class="click-indicator">👁️</div>
@@ -842,9 +696,9 @@
                 <div class="photo-caption">💪 Convirtiéndote en un gran joven</div>
             </div>
             
-            <!-- FOTO 35 - LA ESPECIAL CON INDICADOR ESPECIAL -->
+            <!-- FOTO 35 - AHORA IGUAL A LAS DEMÁS -->
             <div class="photo-frame">
-                <div class="click-indicator">🌟</div>
+                <div class="click-indicator">👁️</div>
                 <img src="35.jpeg" alt="Emmanuel actual" loading="lazy">
                 <div class="photo-caption">🌟ERES UN JOVEN INCREÍBLE DE YA 18 AÑOS. ¡ME SIENTO MUY ORGULLOSO DE TI! 🌟</div>
             </div>
@@ -858,12 +712,14 @@
             </div>
         </div>
 
-        <!-- Resto del contenido -->
-        <div class="video-section">
+        <!-- SECCIÓN DE VIDEO CON REPRODUCCIÓN AUTOMÁTICA -->
+        <div class="video-section" id="videoSection">
+            <div class="audio-muted-notice" id="audioNotice">🎵 La música ha comenzado 🎵</div>
             <div class="video-title">🎮 VIDEO ESPECIAL MINECRAFT PARA EMMANUEL 🎮</div>
             <div class="video-container">
                 <iframe 
-                    src="https://www.youtube.com/embed/XJqx8nnppE0?rel=0&modestbranding=1"
+                    id="mainVideo"
+                    src="https://www.youtube.com/embed/XJqx8nnppE0?rel=0&modestbranding=1&mute=1&autoplay=0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen>
                 </iframe>
@@ -900,67 +756,114 @@
 
     <script>
         // ==============================
-        // CONFIGURACIÓN DE AUDIO AUTOMÁTICO
+        // CONFIGURACIÓN DE AUDIO - SILENCIADO INICIALMENTE
         // ==============================
         const bgAudio = document.getElementById('bgAudio');
         const audioControl = document.getElementById('audioControl');
+        const audioNotice = document.getElementById('audioNotice');
+        let audioStarted = false;
         let audioPlaying = false;
 
-        // Configurar audio para reproducir automáticamente
-        document.addEventListener('DOMContentLoaded', function() {
-            // Intentar reproducir inmediatamente
-            bgAudio.volume = 0.7;
-            
-            // Usar una promesa para reproducción automática
-            const playPromise = bgAudio.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    audioPlaying = true;
-                    audioControl.textContent = '🔊';
-                    audioControl.title = 'Pausar música';
-                    console.log('✅ Audio iniciado automáticamente');
-                }).catch(error => {
-                    console.log('⚠️ Audio no pudo reproducirse automáticamente, esperando interacción');
-                    audioControl.textContent = '🔇';
-                    audioControl.title = 'Reproducir música';
-                    
-                    // Intentar de nuevo cuando el usuario interactúe
-                    const userInteractionHandler = () => {
-                        bgAudio.play().then(() => {
-                            audioPlaying = true;
-                            audioControl.textContent = '🔊';
-                            audioControl.title = 'Pausar música';
-                            console.log('✅ Audio iniciado después de interacción');
-                        });
-                        document.removeEventListener('click', userInteractionHandler);
-                        document.removeEventListener('touchstart', userInteractionHandler);
-                    };
-                    
-                    document.addEventListener('click', userInteractionHandler);
-                    document.addEventListener('touchstart', userInteractionHandler);
-                });
-            }
-        });
+        // Configurar audio inicialmente silenciado
+        bgAudio.volume = 0;
+        audioControl.textContent = '🔇';
+        audioControl.title = 'La música iniciará al llegar al video especial';
 
-        // Control manual del audio
-        audioControl.addEventListener('click', function() {
-            if (audioPlaying) {
-                bgAudio.pause();
-                audioPlaying = false;
-                audioControl.textContent = '🔇';
-                audioControl.title = 'Reproducir música';
-            } else {
+        // Función para iniciar la música
+        function startAudio() {
+            if (!audioStarted) {
+                audioStarted = true;
+                
+                // Aumentar volumen gradualmente
+                let volume = 0;
+                const fadeIn = setInterval(() => {
+                    volume += 0.05;
+                    bgAudio.volume = Math.min(volume, 0.7);
+                    
+                    if (volume >= 0.7) {
+                        clearInterval(fadeIn);
+                    }
+                }, 100);
+                
+                // Reproducir audio
                 bgAudio.play().then(() => {
                     audioPlaying = true;
                     audioControl.textContent = '🔊';
                     audioControl.title = 'Pausar música';
+                    
+                    // Mostrar notificación
+                    audioNotice.classList.add('show');
+                    setTimeout(() => {
+                        audioNotice.classList.remove('show');
+                    }, 3000);
+                    
+                    console.log('✅ Audio iniciado al llegar al video');
+                }).catch(error => {
+                    console.log('❌ Error al iniciar audio:', error);
                 });
+            }
+        }
+
+        // Control manual del audio (solo después de iniciado)
+        audioControl.addEventListener('click', function() {
+            if (audioStarted) {
+                if (audioPlaying) {
+                    bgAudio.pause();
+                    audioPlaying = false;
+                    audioControl.textContent = '🔇';
+                    audioControl.title = 'Reproducir música';
+                } else {
+                    bgAudio.play().then(() => {
+                        audioPlaying = true;
+                        audioControl.textContent = '🔊';
+                        audioControl.title = 'Pausar música';
+                    });
+                }
+            } else {
+                // Si aún no ha iniciado, mostrar mensaje
+                audioControl.textContent = '▶️';
+                audioControl.title = 'La música comenzará pronto...';
+                setTimeout(() => {
+                    audioControl.textContent = '🔇';
+                    audioControl.title = 'La música iniciará al llegar al video especial';
+                }, 1000);
             }
         });
 
         // ==============================
-        // ZOOM DE FOTOS
+        // DETECCIÓN DE SCROLL HASTA EL VIDEO
+        // ==============================
+        const videoSection = document.getElementById('videoSection');
+        const mainVideo = document.getElementById('mainVideo');
+        let videoStarted = false;
+
+        // Observador de intersección para detectar cuando el usuario llega al video
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !videoStarted) {
+                    // El usuario ha llegado a la sección del video
+                    videoStarted = true;
+                    
+                    // Iniciar la música
+                    startAudio();
+                    
+                    // Iniciar el video de YouTube automáticamente
+                    setTimeout(() => {
+                        const videoSrc = mainVideo.src;
+                        // Cambiar a versión con autoplay
+                        mainVideo.src = videoSrc.replace('autoplay=0', 'autoplay=1');
+                        console.log('🎮 Video de Minecraft iniciado automáticamente');
+                    }, 500);
+                }
+            });
+        }, {
+            threshold: 0.5 // Cuando el 50% de la sección sea visible
+        });
+
+        observer.observe(videoSection);
+
+        // ==============================
+        // ZOOM DE FOTOS (MANTENIDO)
         // ==============================
         document.addEventListener('DOMContentLoaded', function() {
             const photoFrames = document.querySelectorAll('.photo-frame');
@@ -982,7 +885,7 @@
                     
                     // Configurar el texto de la imagen ampliada
                     if (caption) {
-                        zoomCaption.textContent = caption.textContent.replace(/🖱️.*/, '').trim();
+                        zoomCaption.textContent = caption.textContent;
                     }
                     
                     // Mostrar el overlay
@@ -990,11 +893,6 @@
                     
                     // Reproducir sonido de clic
                     playClickSound();
-                    
-                    // Efecto especial para la foto 35
-                    if (this.querySelector('.click-indicator').textContent === '🌟') {
-                        playCelebrationSound();
-                    }
                 });
             });
             
@@ -1017,7 +915,7 @@
                 }
             });
             
-            // Sonidos
+            // Sonido de clic
             function playClickSound() {
                 try {
                     const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3');
@@ -1026,26 +924,6 @@
                 } catch (e) {
                     // Ignorar errores de sonido
                 }
-            }
-            
-            function playCelebrationSound() {
-                try {
-                    const celebrationSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3');
-                    celebrationSound.volume = 0.1;
-                    celebrationSound.play();
-                } catch (e) {
-                    // Ignorar errores de sonido
-                }
-            }
-            
-            // Efecto especial al pasar el mouse sobre la foto 35
-            const photo35 = document.querySelector('.photo-frame:nth-child(19)');
-            if (photo35) {
-                photo35.addEventListener('mouseenter', function() {
-                    if (audioPlaying) {
-                        playCelebrationSound();
-                    }
-                });
             }
         });
 
@@ -1109,15 +987,14 @@
             });
         });
 
-        // Asegurar reproducción de audio en iOS
-        document.addEventListener('touchstart', function() {
-            if (!audioPlaying) {
-                bgAudio.play().then(() => {
-                    audioPlaying = true;
-                    audioControl.textContent = '🔊';
-                }).catch(e => {
-                    console.log('Esperando interacción para audio en iOS');
-                });
+        // Forzar inicio de audio si el usuario interactúa antes
+        document.addEventListener('click', function() {
+            if (!audioStarted) {
+                // Solo mostrar que la música empezará pronto
+                audioControl.textContent = '⏳';
+                setTimeout(() => {
+                    audioControl.textContent = '🔇';
+                }, 500);
             }
         });
     </script>
