@@ -134,7 +134,7 @@
             font-weight: bold;
         }
 
-        /* GALERÍA DE FOTOS - MEJORADA */
+        /* GALERÍA DE FOTOS */
         .photo-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
@@ -163,7 +163,7 @@
             cursor: pointer;
         }
 
-        /* TIEMPO DE APARICIÓN - 2 SEGUNDOS */
+        /* TIEMPO DE APARICIÓN */
         .photo-frame:nth-child(1) { animation-delay: 0.1s; }
         .photo-frame:nth-child(2) { animation-delay: 0.2s; }
         .photo-frame:nth-child(3) { animation-delay: 0.3s; }
@@ -185,7 +185,51 @@
         .photo-frame:nth-child(19) { animation-delay: 1.9s; }
         .photo-frame:nth-child(20) { animation-delay: 2.0s; }
 
-        /* TODAS LAS FOTOS IGUALES - INCLUYENDO LA 35 */
+        /* FOTO 35 - ESPECIAL CON GLOW Y ANIMACIONES */
+        .photo-frame:nth-child(19) {
+            border: 8px solid #FF6B6B;
+            animation: photo35Glow 3s infinite alternate, slideUp 0.8s ease-out forwards;
+            animation-delay: 0s, 1.9s;
+        }
+
+        @keyframes photo35Glow {
+            0% {
+                box-shadow: 
+                    0 0 20px #FF6B6B,
+                    0 15px 40px rgba(255, 107, 107, 0.6), 
+                    0 0 50px rgba(255, 107, 107, 0.4);
+                border-color: #FF6B6B;
+            }
+            25% {
+                box-shadow: 
+                    0 0 30px #FFD700,
+                    0 20px 50px rgba(255, 215, 0, 0.7), 
+                    0 0 60px rgba(255, 215, 0, 0.5);
+                border-color: #FFD700;
+            }
+            50% {
+                box-shadow: 
+                    0 0 30px #4ecdc4,
+                    0 20px 50px rgba(78, 205, 196, 0.7), 
+                    0 0 60px rgba(78, 205, 196, 0.5);
+                border-color: #4ecdc4;
+            }
+            75% {
+                box-shadow: 
+                    0 0 30px #FF6B6B,
+                    0 20px 50px rgba(255, 107, 107, 0.8), 
+                    0 0 70px rgba(255, 107, 107, 0.6);
+                border-color: #FF6B6B;
+            }
+            100% {
+                box-shadow: 
+                    0 0 40px #FFD700,
+                    0 25px 60px rgba(255, 215, 0, 0.9), 
+                    0 0 80px rgba(255, 215, 0, 0.7);
+                border-color: #FFD700;
+            }
+        }
+
         @keyframes slideUp {
             0% {
                 opacity: 0;
@@ -208,9 +252,23 @@
                 transform: scale(1.1);
                 filter: brightness(1.1);
             }
+
+            .photo-frame:nth-child(19):hover {
+                transform: scale(1.1) rotate(2deg);
+                animation: photo35Hover 0.5s infinite alternate;
+            }
         }
 
-        /* MEJORADO: Todas las imágenes se verán completas */
+        @keyframes photo35Hover {
+            0% {
+                transform: scale(1.1) rotate(2deg);
+            }
+            100% {
+                transform: scale(1.15) rotate(-2deg);
+            }
+        }
+
+        /* IMÁGENES */
         .photo-frame img {
             width: 100%;
             height: 380px;
@@ -221,7 +279,7 @@
             transition: transform 0.5s, filter 0.5s;
         }
 
-        /* Indicador de clic - OJO */
+        /* Indicador de clic */
         .click-indicator {
             position: absolute;
             top: 10px;
@@ -247,6 +305,27 @@
             background: rgba(255, 215, 0, 1);
         }
 
+        /* Indicador especial para foto 35 */
+        .photo-frame:nth-child(19) .click-indicator {
+            background: rgba(255, 107, 107, 0.9);
+            color: white;
+            font-size: 1.8rem;
+            animation: pulseIndicator 1.5s infinite;
+        }
+
+        @keyframes pulseIndicator {
+            0%, 100% { 
+                transform: scale(1);
+                background: rgba(255, 107, 107, 0.9);
+            }
+            50% { 
+                transform: scale(1.3);
+                background: rgba(255, 215, 0, 0.9);
+                color: #8B4513;
+            }
+        }
+
+        /* Textos de las fotos */
         .photo-caption {
             padding: 18px;
             background: #FFD700;
@@ -263,7 +342,112 @@
             justify-content: center;
         }
 
-        /* FOTO AMPLIADA (OVERLAY) */
+        /* Texto especial para foto 35 */
+        .photo-frame:nth-child(19) .photo-caption {
+            background: linear-gradient(45deg, #FF6B6B, #FF3333, #FF6B6B);
+            background-size: 200% 200%;
+            color: #FFF;
+            font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+            font-weight: bold;
+            border-top: 4px solid #FFD700;
+            animation: captionGradient 3s infinite linear;
+        }
+
+        @keyframes captionGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* NÚMEROS 18 FLOTANTES PARA FOTO 35 */
+        .floating-18 {
+            position: absolute;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 
+                0 0 10px #FF6B6B,
+                0 0 20px #FF6B6B;
+            z-index: 5;
+            pointer-events: none;
+            animation: floatNumber 6s infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes floatNumber {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(-10px) rotate(0deg) scale(1);
+            }
+            30% {
+                opacity: 1;
+                transform: translateY(-30px) rotate(180deg) scale(1.2);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-50px) rotate(360deg) scale(1);
+            }
+            70% {
+                opacity: 1;
+                transform: translateY(-70px) rotate(540deg) scale(0.8);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(-90px) rotate(720deg) scale(0.6);
+            }
+            100% {
+                transform: translateY(-100px) rotate(900deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* PARTÍCULAS PARA FOTO 35 */
+        .photo-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: floatParticle 4s infinite linear;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* FOTO AMPLIADA */
         .photo-zoom-overlay {
             position: fixed;
             top: 0;
@@ -345,7 +529,7 @@
             font-weight: bold;
         }
 
-        /* SECCIÓN DE VIDEO - CON VIDEO QUE INICIA AL LLEGAR ALLÍ */
+        /* VIDEO DE YOUTUBE */
         .video-section {
             max-width: 1000px;
             margin: 50px auto;
@@ -386,27 +570,29 @@
             border: 0;
         }
 
-        /* AUDIO SILENCIADO HASTA LLEGAR AL VIDEO */
-        .audio-muted-notice {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+        /* AUDIO NOTICE */
+        .audio-notice {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             background: rgba(255, 107, 107, 0.9);
             color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
             font-size: 0.9rem;
             font-weight: bold;
-            z-index: 10;
+            z-index: 100;
             opacity: 0;
             transition: opacity 0.5s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .audio-muted-notice.show {
+        .audio-notice.show {
             opacity: 1;
         }
 
-        /* Resto del CSS se mantiene igual */
+        /* Resto del CSS */
         .graduation-caption {
             padding: 20px;
             background: #FFD700;
@@ -487,6 +673,7 @@
             pointer-events: none;
         }
 
+        /* ANIMACIONES GENERALES */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -540,16 +727,28 @@
                 height: 350px;
             }
 
+            .floating-18 {
+                font-size: 1.5rem;
+            }
+
             .click-indicator {
                 width: 35px;
                 height: 35px;
                 font-size: 1.3rem;
+            }
+
+            .photo-frame:nth-child(19) .click-indicator {
+                font-size: 1.5rem;
             }
         }
 
         @media (max-width: 480px) {
             .photo-frame img {
                 height: 320px;
+            }
+
+            .floating-18 {
+                font-size: 1.2rem;
             }
 
             .click-indicator {
@@ -559,11 +758,17 @@
                 top: 8px;
                 right: 8px;
             }
+
+            .photo-frame:nth-child(19) .click-indicator {
+                width: 35px;
+                height: 35px;
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Video de fondo SILENCIADO -->
+    <!-- Video de fondo silenciado -->
     <div class="video-background">
         <iframe 
             src="https://www.youtube.com/embed/XJqx8nnppE0?autoplay=1&mute=1&loop=1&playlist=XJqx8nnppE0&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
@@ -572,7 +777,7 @@
         </iframe>
     </div>
 
-    <!-- Audio de fondo - INICIALMENTE SILENCIADO -->
+    <!-- Audio de fondo - REPRODUCE AL ENTRAR -->
     <audio id="bgAudio" loop>
         <source src="cumple.mp3" type="audio/mpeg">
         <source src="cumple.mp4" type="audio/mp4">
@@ -582,9 +787,12 @@
     </audio>
 
     <!-- Control de audio -->
-    <div class="audio-control" id="audioControl" title="La música iniciará al llegar al video especial">
-        🔇
+    <div class="audio-control" id="audioControl" title="Control de música">
+        🔊
     </div>
+
+    <!-- Notificación de audio -->
+    <div class="audio-notice" id="audioNotice">🎵 ¡Música de cumpleaños activada! 🎵</div>
 
     <!-- Overlay para foto ampliada -->
     <div class="photo-zoom-overlay" id="photoZoomOverlay">
@@ -603,8 +811,9 @@
             <div class="age-display">18 AÑOS</div>
         </div>
 
-        <!-- Galería de fotos SIMPLIFICADA -->
+        <!-- Galería de fotos -->
         <div class="photo-gallery">
+            <!-- Fotos 1-18 -->
             <div class="photo-frame">
                 <div class="click-indicator">👁️</div>
                 <img src="2.jpeg" alt="Emmanuel bebé" loading="lazy">
@@ -696,9 +905,10 @@
                 <div class="photo-caption">💪 Convirtiéndote en un gran joven</div>
             </div>
             
-            <!-- FOTO 35 - AHORA IGUAL A LAS DEMÁS -->
-            <div class="photo-frame">
-                <div class="click-indicator">👁️</div>
+            <!-- FOTO 35 - ESPECIAL CON ANIMACIONES -->
+            <div class="photo-frame" id="photo35">
+                <div class="click-indicator">🌟</div>
+                <!-- Partículas y números 18 se agregan con JavaScript -->
                 <img src="35.jpeg" alt="Emmanuel actual" loading="lazy">
                 <div class="photo-caption">🌟ERES UN JOVEN INCREÍBLE DE YA 18 AÑOS. ¡ME SIENTO MUY ORGULLOSO DE TI! 🌟</div>
             </div>
@@ -712,15 +922,15 @@
             </div>
         </div>
 
-        <!-- SECCIÓN DE VIDEO CON REPRODUCCIÓN AUTOMÁTICA -->
+        <!-- VIDEO DE YOUTUBE - REPRODUCE AL LLEGAR -->
         <div class="video-section" id="videoSection">
-            <div class="audio-muted-notice" id="audioNotice">🎵 La música ha comenzado 🎵</div>
             <div class="video-title">🎮 VIDEO ESPECIAL MINECRAFT PARA EMMANUEL 🎮</div>
             <div class="video-container">
+                <!-- El video se carga sin autoplay inicial -->
                 <iframe 
                     id="mainVideo"
-                    src="https://www.youtube.com/embed/XJqx8nnppE0?rel=0&modestbranding=1&mute=1&autoplay=0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    src="https://www.youtube.com/embed/XJqx8nnppE0?rel=0&modestbranding=1&mute=0"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen>
                 </iframe>
             </div>
@@ -756,37 +966,23 @@
 
     <script>
         // ==============================
-        // CONFIGURACIÓN DE AUDIO - SILENCIADO INICIALMENTE
+        // AUDIO - REPRODUCE AL ENTRAR A LA PÁGINA
         // ==============================
         const bgAudio = document.getElementById('bgAudio');
         const audioControl = document.getElementById('audioControl');
         const audioNotice = document.getElementById('audioNotice');
-        let audioStarted = false;
-        let audioPlaying = false;
+        let audioPlaying = true;
 
-        // Configurar audio inicialmente silenciado
-        bgAudio.volume = 0;
-        audioControl.textContent = '🔇';
-        audioControl.title = 'La música iniciará al llegar al video especial';
-
-        // Función para iniciar la música
-        function startAudio() {
-            if (!audioStarted) {
-                audioStarted = true;
-                
-                // Aumentar volumen gradualmente
-                let volume = 0;
-                const fadeIn = setInterval(() => {
-                    volume += 0.05;
-                    bgAudio.volume = Math.min(volume, 0.7);
-                    
-                    if (volume >= 0.7) {
-                        clearInterval(fadeIn);
-                    }
-                }, 100);
-                
-                // Reproducir audio
-                bgAudio.play().then(() => {
+        // Iniciar audio automáticamente al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar volumen
+            bgAudio.volume = 0.7;
+            
+            // Intentar reproducir inmediatamente
+            const playPromise = bgAudio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
                     audioPlaying = true;
                     audioControl.textContent = '🔊';
                     audioControl.title = 'Pausar música';
@@ -797,73 +993,152 @@
                         audioNotice.classList.remove('show');
                     }, 3000);
                     
-                    console.log('✅ Audio iniciado al llegar al video');
+                    console.log('✅ Audio iniciado automáticamente al entrar');
                 }).catch(error => {
-                    console.log('❌ Error al iniciar audio:', error);
+                    console.log('⚠️ Audio bloqueado por el navegador, esperando interacción');
+                    audioControl.textContent = '🔇';
+                    audioControl.title = 'Haz clic para reproducir música';
+                    
+                    // Intentar reproducir cuando el usuario interactúe
+                    const tryPlayOnInteraction = () => {
+                        bgAudio.play().then(() => {
+                            audioPlaying = true;
+                            audioControl.textContent = '🔊';
+                            audioNotice.classList.add('show');
+                            setTimeout(() => {
+                                audioNotice.classList.remove('show');
+                            }, 3000);
+                        });
+                        document.removeEventListener('click', tryPlayOnInteraction);
+                        document.removeEventListener('touchstart', tryPlayOnInteraction);
+                    };
+                    
+                    document.addEventListener('click', tryPlayOnInteraction);
+                    document.addEventListener('touchstart', tryPlayOnInteraction);
                 });
             }
-        }
+        });
 
-        // Control manual del audio (solo después de iniciado)
+        // Control manual del audio
         audioControl.addEventListener('click', function() {
-            if (audioStarted) {
-                if (audioPlaying) {
-                    bgAudio.pause();
-                    audioPlaying = false;
-                    audioControl.textContent = '🔇';
-                    audioControl.title = 'Reproducir música';
-                } else {
-                    bgAudio.play().then(() => {
-                        audioPlaying = true;
-                        audioControl.textContent = '🔊';
-                        audioControl.title = 'Pausar música';
-                    });
-                }
+            if (audioPlaying) {
+                bgAudio.pause();
+                audioPlaying = false;
+                audioControl.textContent = '🔇';
+                audioControl.title = 'Reproducir música';
             } else {
-                // Si aún no ha iniciado, mostrar mensaje
-                audioControl.textContent = '▶️';
-                audioControl.title = 'La música comenzará pronto...';
-                setTimeout(() => {
-                    audioControl.textContent = '🔇';
-                    audioControl.title = 'La música iniciará al llegar al video especial';
-                }, 1000);
+                bgAudio.play().then(() => {
+                    audioPlaying = true;
+                    audioControl.textContent = '🔊';
+                    audioControl.title = 'Pausar música';
+                });
             }
         });
 
         // ==============================
-        // DETECCIÓN DE SCROLL HASTA EL VIDEO
+        // VIDEO DE YOUTUBE - REPRODUCE AL LLEGAR
         // ==============================
         const videoSection = document.getElementById('videoSection');
         const mainVideo = document.getElementById('mainVideo');
         let videoStarted = false;
 
-        // Observador de intersección para detectar cuando el usuario llega al video
-        const observer = new IntersectionObserver((entries) => {
+        // Observador para detectar cuando el usuario llega al video
+        const videoObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !videoStarted) {
                     // El usuario ha llegado a la sección del video
                     videoStarted = true;
                     
-                    // Iniciar la música
-                    startAudio();
-                    
-                    // Iniciar el video de YouTube automáticamente
-                    setTimeout(() => {
-                        const videoSrc = mainVideo.src;
-                        // Cambiar a versión con autoplay
-                        mainVideo.src = videoSrc.replace('autoplay=0', 'autoplay=1');
-                        console.log('🎮 Video de Minecraft iniciado automáticamente');
-                    }, 500);
+                    // Activar autoplay del video
+                    const currentSrc = mainVideo.src;
+                    if (!currentSrc.includes('autoplay=1')) {
+                        const newSrc = currentSrc.includes('?') 
+                            ? currentSrc + '&autoplay=1'
+                            : currentSrc + '?autoplay=1';
+                        mainVideo.src = newSrc;
+                        
+                        console.log('🎮 Video de Minecraft iniciado automáticamente al llegar');
+                        
+                        // Reproducir sonido especial
+                        if (audioPlaying) {
+                            playCelebrationSound();
+                        }
+                    }
                 }
             });
         }, {
-            threshold: 0.5 // Cuando el 50% de la sección sea visible
+            threshold: 0.5, // Cuando el 50% de la sección sea visible
+            rootMargin: '50px' // Cargar un poco antes de que sea visible
         });
 
-        observer.observe(videoSection);
+        // Observar la sección del video
+        videoObserver.observe(videoSection);
 
         // ==============================
-        // ZOOM DE FOTOS (MANTENIDO)
+        // ANIMACIONES ESPECIALES PARA FOTO 35
+        // ==============================
+        function createPhoto35Animations() {
+            const photo35 = document.getElementById('photo35');
+            if (!photo35) return;
+            
+            // Crear contenedor de partículas
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'photo-particles';
+            photo35.appendChild(particlesContainer);
+            
+            // Crear partículas
+            const particleColors = ['#FF6B6B', '#FFD700', '#4ecdc4', '#45b7d1'];
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Posición aleatoria
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                // Color aleatorio
+                particle.style.backgroundColor = particleColors[Math.floor(Math.random() * particleColors.length)];
+                
+                // Tamaño aleatorio
+                const size = 4 + Math.random() * 8;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Retardo de animación
+                particle.style.animationDelay = Math.random() * 4 + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Crear números 18 flotantes
+            for (let i = 0; i < 5; i++) {
+                const number18 = document.createElement('div');
+                number18.className = 'floating-18';
+                number18.textContent = '18';
+                
+                // Posición aleatoria
+                number18.style.left = (10 + Math.random() * 80) + '%';
+                
+                // Retardo de animación
+                number18.style.animationDelay = (i * 1.2) + 's';
+                
+                // Tamaño aleatorio
+                const fontSize = 1.5 + Math.random() * 1;
+                number18.style.fontSize = fontSize + 'rem';
+                
+                photo35.appendChild(number18);
+            }
+            
+            // Efecto de sonido al pasar el mouse
+            photo35.addEventListener('mouseenter', function() {
+                if (audioPlaying) {
+                    playPhoto35Sound();
+                }
+            });
+        }
+
+        // ==============================
+        // ZOOM DE FOTOS
         // ==============================
         document.addEventListener('DOMContentLoaded', function() {
             const photoFrames = document.querySelectorAll('.photo-frame');
@@ -893,6 +1168,11 @@
                     
                     // Reproducir sonido de clic
                     playClickSound();
+                    
+                    // Efecto especial para foto 35
+                    if (this.id === 'photo35') {
+                        playPhoto35Sound();
+                    }
                 });
             });
             
@@ -915,17 +1195,42 @@
                 }
             });
             
-            // Sonido de clic
-            function playClickSound() {
-                try {
-                    const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3');
-                    clickSound.volume = 0.2;
-                    clickSound.play();
-                } catch (e) {
-                    // Ignorar errores de sonido
-                }
-            }
+            // Crear animaciones para foto 35
+            createPhoto35Animations();
         });
+
+        // ==============================
+        // SONIDOS
+        // ==============================
+        function playClickSound() {
+            try {
+                const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3');
+                clickSound.volume = 0.2;
+                clickSound.play();
+            } catch (e) {
+                // Ignorar errores de sonido
+            }
+        }
+
+        function playCelebrationSound() {
+            try {
+                const celebrationSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3');
+                celebrationSound.volume = 0.1;
+                celebrationSound.play();
+            } catch (e) {
+                // Ignorar errores de sonido
+            }
+        }
+
+        function playPhoto35Sound() {
+            try {
+                const specialSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-party-horn-sound-2927.mp3');
+                specialSound.volume = 0.15;
+                specialSound.play();
+            } catch (e) {
+                // Ignorar errores de sonido
+            }
+        }
 
         // ==============================
         // EFECTOS DECORATIVOS
@@ -985,17 +1290,6 @@
                     this.innerHTML = 'Foto no disponible<br><small>😢</small>';
                 };
             });
-        });
-
-        // Forzar inicio de audio si el usuario interactúa antes
-        document.addEventListener('click', function() {
-            if (!audioStarted) {
-                // Solo mostrar que la música empezará pronto
-                audioControl.textContent = '⏳';
-                setTimeout(() => {
-                    audioControl.textContent = '🔇';
-                }, 500);
-            }
         });
     </script>
 </body>
