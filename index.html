@@ -91,7 +91,7 @@
 
         .birthday-image {
             max-width: 100%;
-            width: min(400px, 90vw); /* Un poco más grande */
+            width: min(400px, 90vw);
             height: auto;
             margin: 15px auto;
             display: block;
@@ -137,20 +137,20 @@
         /* GALERÍA DE FOTOS - MÁS GRANDE */
         .photo-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); /* CUADROS MÁS GRANDES */
-            gap: 25px; /* MÁS ESPACIO */
-            max-width: 1600px; /* ANCHO MÁXIMO AUMENTADO */
-            margin: 40px auto; /* MÁGIN SUPERIOR AUMENTADO */
+            grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+            gap: 25px;
+            max-width: 1600px;
+            margin: 40px auto;
             padding: 15px;
             width: 100%;
         }
 
         .photo-frame {
             position: relative;
-            border: 6px solid #8B4513; /* BORDE MÁS GRUESO */
-            border-radius: 20px; /* ESQUINAS MÁS REDONDAS */
+            border: 6px solid #8B4513;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* SOMBRA MÁS PRONUNCIADA */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             transition: transform 0.3s, box-shadow 0.3s;
             background: #FFD700;
             width: 100%;
@@ -184,6 +184,12 @@
         .photo-frame:nth-child(19) { animation-delay: 1.9s; }
         .photo-frame:nth-child(20) { animation-delay: 2.0s; }
 
+        /* MARCO ESPECIAL PARA LA FOTO 35 */
+        .photo-frame:nth-child(19) {
+            border: 8px solid #FF6B6B; /* BORDE ESPECIAL ROJO */
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6), 0 0 50px rgba(255, 107, 107, 0.4); /* SOMBRA ESPECIAL */
+        }
+
         @keyframes slideUp {
             0% {
                 opacity: 0;
@@ -197,21 +203,27 @@
 
         @media (hover: hover) {
             .photo-frame:hover {
-                transform: scale(1.08) rotate(1deg); /* EFECTO HOVER MÁS PRONUNCIADO */
+                transform: scale(1.08) rotate(1deg);
                 box-shadow: 0 20px 50px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.6);
                 z-index: 100;
             }
 
             .photo-frame:hover img {
-                transform: scale(1.15); /* ZOOM MÁS PRONUNCIADO */
+                transform: scale(1.15);
                 filter: brightness(1.15);
+            }
+
+            /* HOVER ESPECIAL PARA FOTO 35 */
+            .photo-frame:nth-child(19):hover {
+                transform: scale(1.1) rotate(2deg);
+                box-shadow: 0 25px 60px rgba(255, 107, 107, 0.8), 0 0 60px rgba(255, 107, 107, 0.6);
             }
         }
 
         /* IMÁGENES MÁS GRANDES */
         .photo-frame img {
             width: 100%;
-            height: 340px; /* ALTURA AUMENTADA 60px MÁS */
+            height: 340px;
             object-fit: cover;
             display: block;
             flex-shrink: 0;
@@ -237,37 +249,52 @@
         .photo-frame:nth-child(16) img { object-position: center 25%; } /* 26.jpeg */
         .photo-frame:nth-child(17) img { object-position: center 20%; } /* 29.jpeg */
         .photo-frame:nth-child(18) img { object-position: center 15%; } /* 30.jpeg */
-        .photo-frame:nth-child(19) img { object-position: center 20%; } /* 35.jpeg */
+        
+        /* FOTO 35 ESPECIAL - AJUSTADA PARA VERSE COMPLETA */
+        .photo-frame:nth-child(19) img { 
+            object-position: center 40%; /* MUCHO MÁS ABAJO PARA VER ROSTROS COMPLETOS */
+            height: 360px; /* UN POCO MÁS ALTA QUE LAS OTRAS */
+        }
+        
         .photo-frame:nth-child(20) img { object-position: center 30%; } /* grado.png */
 
         /* TEXTO MÁS GRANDE Y CON MÁS ESPACIO */
         .photo-caption {
-            padding: 18px; /* MÁS PADDING */
+            padding: 18px;
             background: #FFD700;
             color: #000;
-            font-size: clamp(1rem, 2.5vw, 1.4rem); /* LETRA MÁS GRANDE */
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
             font-weight: bold;
             text-align: center;
-            line-height: 1.6; /* MÁS ESPACIADO ENTRE LÍNEAS */
+            line-height: 1.6;
             word-wrap: break-word;
             flex-shrink: 0;
-            min-height: 90px; /* ALTURA MÍNIMA PARA EL TEXTO */
+            min-height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
+        /* TEXTO ESPECIAL PARA FOTO 35 */
+        .photo-frame:nth-child(19) .photo-caption {
+            background: #FF6B6B; /* FONDO ESPECIAL ROJO */
+            color: #FFF; /* TEXTO BLANCO */
+            font-size: clamp(1.1rem, 2.8vw, 1.6rem); /* LETRA MÁS GRANDE */
+            font-weight: bold;
+            border-top: 4px solid #FFD700; /* BORDE DORADO ENCIMA */
+        }
+
         /* TEXTO DE GRADUACIÓN MÁS GRANDE */
         .graduation-caption {
-            padding: 20px; /* MÁS PADDING */
+            padding: 20px;
             background: #FFD700;
             color: #000;
-            font-size: clamp(1rem, 2.5vw, 1.4rem); /* LETRA MÁS GRANDE */
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
             font-weight: bold;
             text-align: center;
-            line-height: 1.7; /* MÁS ESPACIADO */
+            line-height: 1.7;
             word-wrap: break-word;
-            min-height: 100px; /* ALTURA MÍNIMA */
+            min-height: 100px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -276,28 +303,28 @@
 
         .cap-icon {
             display: inline-block;
-            font-size: 2rem; /* ÍCONO MÁS GRANDE */
+            font-size: 2rem;
             animation: bounce 2s infinite;
-            margin: 0 8px; /* MÁS ESPACIO */
+            margin: 0 8px;
         }
 
         .video-section {
-            max-width: 1000px; /* ANCHO AUMENTADO */
-            margin: 50px auto; /* MÁRGIN AUMENTADO */
-            padding: 20px; /* MÁS PADDING */
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
             background: rgba(0,0,0,0.8);
-            border-radius: 25px; /* ESQUINAS MÁS REDONDAS */
-            border: 5px solid #FFD700; /* BORDE MÁS GRUESO */
+            border-radius: 25px;
+            border: 5px solid #FFD700;
             width: 100%;
         }
 
         .video-title {
-            font-size: clamp(1.5rem, 4vw, 3rem); /* TÍTULO MÁS GRANDE */
+            font-size: clamp(1.5rem, 4vw, 3rem);
             color: #FFD700;
             text-align: center;
-            margin-bottom: 25px; /* MÁS ESPACIO */
+            margin-bottom: 25px;
             font-weight: bold;
-            text-shadow: 3px 3px 0 #000; /* SOMBRA MÁS PRONUNCIADA */
+            text-shadow: 3px 3px 0 #000;
             word-wrap: break-word;
         }
 
@@ -307,8 +334,8 @@
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 20px; /* ESQUINAS MÁS REDONDAS */
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6); /* SOMBRA MÁS PRONUNCIADA */
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
 
         .video-container iframe {
@@ -321,57 +348,57 @@
         }
 
         .message-box {
-            max-width: 1000px; /* ANCHO AUMENTADO */
-            margin: 40px auto; /* MÁRGIN AUMENTADO */
+            max-width: 1000px;
+            margin: 40px auto;
             background: rgba(0,0,0,0.8);
-            padding: clamp(25px, 6vw, 50px); /* MÁS PADDING */
-            border-radius: 25px; /* ESQUINAS MÁS REDONDAS */
+            padding: clamp(25px, 6vw, 50px);
+            border-radius: 25px;
             text-align: center;
-            border: 5px solid #FFD700; /* BORDE MÁS GRUESO */
+            border: 5px solid #FFD700;
             width: 100%;
         }
 
         .message-text {
-            font-size: clamp(1.1rem, 2.8vw, 1.6rem); /* LETRA MÁS GRANDE */
+            font-size: clamp(1.1rem, 2.8vw, 1.6rem);
             color: #fff;
-            line-height: 1.9; /* MÁS ESPACIADO */
+            line-height: 1.9;
             text-shadow: 2px 2px 0 #000;
             word-wrap: break-word;
         }
 
         .footer {
-            max-width: 1000px; /* ANCHO AUMENTADO */
-            margin: 30px auto; /* MÁRGIN AUMENTADO */
-            padding: 25px; /* MÁS PADDING */
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 25px;
             background: rgba(0,0,0,0.8);
-            border-radius: 20px; /* ESQUINAS MÁS REDONDAS */
+            border-radius: 20px;
             text-align: center;
-            border: 4px solid #FFD700; /* BORDE MÁS GRUESO */
+            border: 4px solid #FFD700;
         }
 
         .footer-text {
-            font-size: clamp(1rem, 2.5vw, 1.5rem); /* LETRA MÁS GRANDE */
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
             color: #FFD700;
             font-style: italic;
-            text-shadow: 2px 2px 3px #000; /* SOMBRA MÁS PRONUNCIADA */
+            text-shadow: 2px 2px 3px #000;
             font-weight: bold;
-            line-height: 1.6; /* MÁS ESPACIADO */
+            line-height: 1.6;
         }
 
         .balloon {
             position: fixed;
             bottom: -100px;
             animation: floatUp 8s infinite;
-            font-size: clamp(1.8rem, 4vw, 3.5rem); /* GLOBOS MÁS GRANDES */
-            filter: drop-shadow(4px 4px 6px rgba(0,0,0,0.4)); /* SOMBRA MÁS PRONUNCIADA */
+            font-size: clamp(1.8rem, 4vw, 3.5rem);
+            filter: drop-shadow(4px 4px 6px rgba(0,0,0,0.4));
             z-index: 5;
             pointer-events: none;
         }
 
         .confetti {
             position: fixed;
-            width: 10px; /* MÁS GRANDE */
-            height: 10px; /* MÁS GRANDE */
+            width: 10px;
+            height: 10px;
             animation: fall 3s linear infinite;
             z-index: 5;
             pointer-events: none;
@@ -384,17 +411,17 @@
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); } /* SALTO MÁS ALTO */
+            50% { transform: translateY(-20px); }
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); } /* PULSO MÁS PRONUNCIADO */
+            50% { transform: scale(1.08); }
         }
 
         @keyframes scaleUp {
             0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(5deg); } /* EFECTO MÁS PRONUNCIADO */
+            50% { transform: scale(1.2) rotate(5deg); }
         }
 
         @keyframes floatUp {
@@ -422,16 +449,25 @@
         @media (max-width: 768px) {
             .photo-gallery {
                 grid-template-columns: 1fr;
-                gap: 22px; /* MÁS ESPACIO EN MÓVIL */
+                gap: 22px;
                 padding: 12px;
             }
             
             .photo-frame {
-                border: 5px solid #8B4513; /* BORDE LIGERAMENTE MÁS DELGADO */
+                border: 5px solid #8B4513;
+            }
+
+            .photo-frame:nth-child(19) {
+                border: 6px solid #FF6B6B; /* BORDE ESPECIAL MÁS DELGADO EN MÓVIL */
             }
 
             .photo-frame img {
-                height: 300px; /* ALTURA MANTENIDA PERO RESPONSIVE */
+                height: 300px;
+            }
+
+            .photo-frame:nth-child(19) img {
+                height: 320px; /* UN POCO MÁS ALTA EN MÓVIL */
+                object-position: center 38%; /* AJUSTE PARA MÓVIL */
             }
 
             .container {
@@ -450,7 +486,7 @@
 
             .birthday-image {
                 width: 85%;
-                max-width: 320px; /* IMAGEN MÁS GRANDE EN MÓVIL */
+                max-width: 320px;
             }
 
             .audio-control {
@@ -468,14 +504,23 @@
 
             .photo-caption,
             .graduation-caption {
-                font-size: clamp(1.1rem, 3vw, 1.3rem); /* LETRA MÁS GRANDE EN MÓVIL */
+                font-size: clamp(1.1rem, 3vw, 1.3rem);
                 padding: 16px;
+            }
+
+            .photo-frame:nth-child(19) .photo-caption {
+                font-size: clamp(1.2rem, 3.2vw, 1.5rem); /* LETRA MÁS GRANDE EN MÓVIL */
             }
         }
 
         @media (max-width: 480px) {
             .photo-frame img {
-                height: 280px; /* ALTURA MANTENIDA */
+                height: 280px;
+            }
+
+            .photo-frame:nth-child(19) img {
+                height: 300px; /* AJUSTE PARA PANTALLAS MUY PEQUEÑAS */
+                object-position: center 35%; /* AJUSTE FINAL */
             }
 
             .photo-caption,
@@ -485,12 +530,17 @@
                 min-height: 80px;
             }
 
+            .photo-frame:nth-child(19) .photo-caption {
+                padding: 16px;
+                font-size: 1.1rem;
+            }
+
             .video-section {
                 padding: 15px;
             }
 
             .balloon {
-                font-size: 2.2rem; /* GLOBOS MÁS GRANDES EN MÓVIL */
+                font-size: 2.2rem;
             }
 
             .confetti {
@@ -540,7 +590,6 @@
 
     <div class="container">
         <div class="header">
-            <!-- CAMBIO AQUÍ: 1.avif por 1.jpeg -->
             <img src="1.jpeg" alt="Feliz Cumpleaños" class="birthday-image">
             <div class="minecraft-title">🎮 FELIZ CUMPLEAÑOS 🎮</div>
             <div class="subtitle">EMMANUEL</div>
@@ -620,10 +669,13 @@
                 <img src="30.jpeg" alt="Emmanuel adolescente" loading="lazy">
                 <div class="photo-caption">💪 Convirtiéndote en un gran joven</div>
             </div>
+            
+            <!-- FOTO 35 - LA MÁS IMPORTANTE -->
             <div class="photo-frame">
                 <img src="35.jpeg" alt="Emmanuel actual" loading="lazy">
-                <div class="photo-caption">🌟 Hoy, un hombre increíble de 18 años. ¡Orgulloso de ti!</div>
+                <div class="photo-caption">🌟 HOY, UN HOMBRE INCREÍBLE DE 18 AÑOS. ¡ORGULLOSO DE TI! 🌟</div>
             </div>
+            
             <div class="photo-frame">
                 <img src="grado.png" alt="Graduación" loading="lazy">
                 <div class="graduation-caption">
@@ -738,7 +790,7 @@
         // Crear globos
         const colors = ['🎈', '🎉', '🎊', '⭐', '✨'];
         const isMobile = window.innerWidth < 768;
-        const balloonCount = isMobile ? 18 : 30; /* MÁS GLOBOS */
+        const balloonCount = isMobile ? 18 : 30;
         
         for (let i = 0; i < balloonCount; i++) {
             const balloon = document.createElement('div');
@@ -752,7 +804,7 @@
 
         // Crear confetti
         const confettiColors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7', '#dfe6e9'];
-        const confettiCount = isMobile ? 25 : 60; /* MÁS CONFETTI */
+        const confettiCount = isMobile ? 25 : 60;
         
         for (let i = 0; i < confettiCount; i++) {
             const confetti = document.createElement('div');
@@ -788,7 +840,7 @@
                     img.style.alignItems = 'center';
                     img.style.justifyContent = 'center';
                     img.style.color = '#000';
-                    img.style.fontSize = '16px'; /* TEXTO MÁS GRANDE */
+                    img.style.fontSize = '16px';
                     img.style.fontWeight = 'bold';
                 }
             });
