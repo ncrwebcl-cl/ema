@@ -587,59 +587,27 @@
             border: 0;
         }
 
-        /* PANTALLA DE INICIO PARA MÓVILES */
-        .mobile-start-screen {
+        /* NOTIFICACIÓN DE AUDIO */
+        .audio-notice {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1a5f7a 0%, #57a0d3 50%, #87ceeb 100%);
-            z-index: 3000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 1;
-            transition: opacity 0.5s;
-        }
-
-        .mobile-start-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .start-button {
-            background: rgba(255, 215, 0, 0.95);
-            border: 3px solid #8B4513;
-            border-radius: 20px;
-            padding: 20px 40px;
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #8B4513;
-            cursor: pointer;
-            margin-top: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: all 0.3s;
-            animation: pulse 2s infinite;
-        }
-
-        .start-button:hover {
-            transform: scale(1.1);
-            background: rgba(255, 215, 0, 1);
-        }
-
-        .start-button:active {
-            transform: scale(0.95);
-        }
-
-        .start-message {
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 107, 107, 0.9);
             color: white;
-            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.5s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             text-align: center;
-            margin-top: 20px;
-            max-width: 80%;
-            text-shadow: 2px 2px 0 #000;
+        }
+
+        .audio-notice.show {
+            opacity: 1;
         }
 
         /* Resto del CSS */
@@ -791,9 +759,19 @@
                 font-size: 1.5rem;
             }
 
-            .start-button {
-                padding: 15px 30px;
-                font-size: 1.5rem;
+            .audio-control {
+                width: 55px;
+                height: 55px;
+                font-size: 1.8rem;
+                top: 15px;
+                right: 15px;
+            }
+
+            .audio-notice {
+                font-size: 0.8rem;
+                padding: 8px 15px;
+                bottom: 15px;
+                width: 90%;
             }
         }
 
@@ -820,9 +798,18 @@
                 font-size: 1.3rem;
             }
 
-            .start-button {
-                padding: 12px 25px;
-                font-size: 1.3rem;
+            .audio-control {
+                width: 50px;
+                height: 50px;
+                font-size: 1.6rem;
+                top: 12px;
+                right: 12px;
+            }
+
+            .audio-notice {
+                font-size: 0.75rem;
+                padding: 6px 12px;
+                width: 95%;
             }
         }
     </style>
@@ -846,24 +833,14 @@
         Tu navegador no soporta audio HTML5.
     </audio>
 
-    <!-- Pantalla de inicio para móviles -->
-    <div class="mobile-start-screen" id="mobileStartScreen">
-        <div class="minecraft-title">🎮 FELIZ CUMPLEAÑOS 🎮</div>
-        <div class="subtitle">EMMANUEL</div>
-        <div class="age-display">18 AÑOS</div>
-        
-        <div class="start-button" id="startButton">
-            🎵 INICIAR CELEBRACIÓN 🎵
-        </div>
-        
-        <div class="start-message">
-            ¡Toca el botón para comenzar la música y la celebración!
-        </div>
-    </div>
-
     <!-- Control de audio -->
     <div class="audio-control" id="audioControl" title="Control de música de fondo">
         🔊
+    </div>
+
+    <!-- Notificación de audio (aparece al iniciar) -->
+    <div class="audio-notice" id="audioNotice">
+        🎵 La música se reproducirá automáticamente al interactuar con la página
     </div>
 
     <!-- Overlay para foto ampliada -->
@@ -982,7 +959,7 @@
                 <div class="click-indicator">🌟</div>
                 <!-- Partículas y números 18 se agregan con JavaScript -->
                 <img src="35.jpeg" alt="Emmanuel actual" loading="lazy">
-                <div class="photo-caption">🌟ERES UN JOVEN INCREÍBLE. ¡ME SIENTO MUY ORGULLOSO DE TI! 🌟</div>
+                <div class="photo-caption">🌟ERES UN JOVEN INCREÍBLE DE YA 18 AÑOS. ¡ME SIENTO MUY ORGULLOSO DE TI! 🌟</div>
             </div>
             
             <div class="photo-frame">
@@ -1042,30 +1019,26 @@
 
     <script>
         // ==============================
-        // DETECCIÓN DE DISPOSITIVO MÓVIL
-        // ==============================
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        const mobileStartScreen = document.getElementById('mobileStartScreen');
-        const startButton = document.getElementById('startButton');
-        
-        if (isMobile) {
-            // Mostrar pantalla de inicio en móviles
-            mobileStartScreen.style.display = 'flex';
-        } else {
-            // Ocultar pantalla de inicio en computadoras
-            mobileStartScreen.style.display = 'none';
-        }
-
-        // ==============================
-        // AUDIO DE FONDO - SOLO PARA LA PRESENTACIÓN
+        // AUDIO DE FONDO - FUNCIONA IGUAL EN TODOS LOS DISPOSITIVOS
         // ==============================
         const bgAudio = document.getElementById('bgAudio');
         const audioControl = document.getElementById('audioControl');
+        const audioNotice = document.getElementById('audioNotice');
         let audioPlaying = false;
         let audioStarted = false;
         let videoAudioNotice = document.getElementById('videoAudioNotice');
 
-        // Función para iniciar audio
+        // Mostrar notificación inicial
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                audioNotice.classList.add('show');
+                setTimeout(() => {
+                    audioNotice.classList.remove('show');
+                }, 4000);
+            }, 1000);
+        });
+
+        // Función para iniciar audio - FUNCIONA EN TODOS LOS DISPOSITIVOS
         function startAudio() {
             if (!audioStarted) {
                 audioStarted = true;
@@ -1084,22 +1057,17 @@
                         
                         console.log('✅ Audio de fondo iniciado correctamente');
                         
-                        // Ocultar pantalla de inicio en móviles
-                        if (isMobile) {
-                            setTimeout(() => {
-                                mobileStartScreen.classList.add('hidden');
-                                setTimeout(() => {
-                                    mobileStartScreen.style.display = 'none';
-                                }, 500);
-                            }, 1000);
-                        }
-                        
                     }).catch(error => {
-                        console.log('❌ Error al iniciar audio:', error);
-                        // Mostrar botón de inicio si falla
-                        if (isMobile) {
-                            startButton.textContent = '🎵 REINTENTAR 🎵';
-                        }
+                        console.log('❌ Audio bloqueado por el navegador, esperando interacción');
+                        audioControl.textContent = '🔇';
+                        audioControl.title = 'Toca para reproducir música';
+                        
+                        // Mostrar notificación para móviles
+                        audioNotice.textContent = '👆 Toca cualquier parte para iniciar la música';
+                        audioNotice.classList.add('show');
+                        setTimeout(() => {
+                            audioNotice.classList.remove('show');
+                        }, 5000);
                     });
                 }
             }
@@ -1115,30 +1083,37 @@
             }
         }
 
-        // En computadoras: Iniciar audio automáticamente
-        if (!isMobile) {
-            document.addEventListener('DOMContentLoaded', function() {
-                // Pequeño retraso para asegurar que todo esté listo
-                setTimeout(startAudio, 500);
-            });
-        }
-
-        // En móviles: Esperar a que el usuario toque el botón
-        startButton.addEventListener('click', function() {
-            startAudio();
+        // Intentar iniciar audio automáticamente al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(startAudio, 1000);
         });
 
-        // También permitir que cualquier toque en la pantalla móvil inicie el audio
-        if (isMobile) {
-            document.addEventListener('touchstart', function firstTouch() {
-                if (!audioStarted) {
-                    startAudio();
-                }
-                document.removeEventListener('touchstart', firstTouch);
-            });
-        }
+        // Permitir que cualquier interacción del usuario inicie el audio
+        document.addEventListener('click', function() {
+            if (!audioStarted) {
+                startAudio();
+            }
+        });
 
-        // Control manual del audio (para pausar/reanudar)
+        document.addEventListener('touchstart', function() {
+            if (!audioStarted) {
+                startAudio();
+            }
+        });
+
+        // También iniciar al tocar cualquier foto
+        document.addEventListener('DOMContentLoaded', function() {
+            const photoFrames = document.querySelectorAll('.photo-frame');
+            photoFrames.forEach(frame => {
+                frame.addEventListener('click', function() {
+                    if (!audioStarted) {
+                        startAudio();
+                    }
+                });
+            });
+        });
+
+        // Control manual del audio
         audioControl.addEventListener('click', function() {
             if (audioStarted) {
                 if (audioPlaying) {
@@ -1151,7 +1126,6 @@
                     });
                 }
             } else {
-                // Si aún no ha iniciado, iniciar ahora
                 startAudio();
             }
         });
@@ -1162,7 +1136,6 @@
         const videoSection = document.getElementById('videoSection');
         const mainVideo = document.getElementById('mainVideo');
         let videoStarted = false;
-        let videoPlayer = null;
 
         // Observador para detectar cuando el usuario llega al video
         const videoObserver = new IntersectionObserver((entries) => {
@@ -1193,12 +1166,12 @@
                             videoAudioNotice.classList.remove('show');
                         }, 5000);
                         
-                    }, 1000); // 1 segundo de retraso para dar tiempo a la transición
+                    }, 1000);
                 }
             });
         }, {
-            threshold: 0.6, // Cuando el 60% de la sección sea visible
-            rootMargin: '100px' // Cargar antes de que sea completamente visible
+            threshold: 0.6,
+            rootMargin: '100px'
         });
 
         // Observar la sección del video
@@ -1207,9 +1180,8 @@
         // Detectar cuando el usuario sale del video para reanudar audio
         const videoExitObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (!entry.isIntersecting && videoStarted && !audioPlaying) {
+                if (!entry.isIntersecting && videoStarted && !audioPlaying && audioStarted) {
                     // El usuario ha salido del video y el audio estaba pausado
-                    // Reanudar audio de fondo después de un breve retraso
                     setTimeout(() => {
                         if (audioStarted && !audioPlaying) {
                             bgAudio.play().then(() => {
@@ -1283,8 +1255,8 @@
                 photo35.appendChild(number18);
             }
             
-            // Efecto de sonido al pasar el mouse/tocar
-            photo35.addEventListener(isMobile ? 'touchstart' : 'mouseenter', function() {
+            // Efecto de sonido al tocar la foto 35
+            photo35.addEventListener('click', function() {
                 if (audioPlaying) {
                     playPhoto35Sound();
                 }
@@ -1382,7 +1354,7 @@
         window.addEventListener('load', function() {
             // Globos
             const colors = ['🎈', '🎉', '🎊', '⭐', '✨'];
-            const balloonCount = isMobile ? 18 : 30;
+            const balloonCount = 25;
             
             for (let i = 0; i < balloonCount; i++) {
                 const balloon = document.createElement('div');
@@ -1396,7 +1368,7 @@
 
             // Confetti
             const confettiColors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7', '#dfe6e9'];
-            const confettiCount = isMobile ? 25 : 60;
+            const confettiCount = 40;
             
             for (let i = 0; i < confettiCount; i++) {
                 const confetti = document.createElement('div');
