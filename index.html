@@ -134,7 +134,7 @@
             font-weight: bold;
         }
 
-        /* GALERÍA DE FOTOS */
+        /* GALERÍA DE FOTOS - MEJORADA */
         .photo-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
@@ -160,8 +160,10 @@
             opacity: 0;
             transform: translateY(30px);
             animation: slideUp 0.8s ease-out forwards;
+            cursor: pointer;
         }
 
+        /* TIEMPO DE APARICIÓN - 2 SEGUNDOS */
         .photo-frame:nth-child(1) { animation-delay: 0.1s; }
         .photo-frame:nth-child(2) { animation-delay: 0.2s; }
         .photo-frame:nth-child(3) { animation-delay: 0.3s; }
@@ -239,18 +241,59 @@
             }
         }
 
+        /* MEJORADO: Todas las imágenes se verán completas */
         .photo-frame img {
             width: 100%;
-            height: 340px;
+            height: 380px; /* Aumentado para ver mejor las caras */
             object-fit: cover;
+            object-position: center top; /* Asegura que se vean los rostros */
             display: block;
             flex-shrink: 0;
             transition: transform 0.5s, filter 0.5s;
         }
 
+        /* Ajustes específicos para imágenes verticales */
         .photo-frame:nth-child(19) img { 
-            object-position: center 40%;
-            height: 360px;
+            object-position: center center; /* Centrado para foto especial */
+            height: 400px; /* Un poco más alta para la foto especial */
+        }
+
+        /* Indicador de clic */
+        .click-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 215, 0, 0.9);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #8B4513;
+            z-index: 10;
+            opacity: 0.8;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .photo-frame:hover .click-indicator {
+            transform: scale(1.2);
+            opacity: 1;
+            background: rgba(255, 215, 0, 1);
+        }
+
+        .photo-frame:nth-child(19) .click-indicator {
+            background: rgba(255, 107, 107, 0.9);
+            color: white;
+            font-size: 1.8rem;
+            animation: pulseIndicator 1.5s infinite;
+        }
+
+        @keyframes pulseIndicator {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
 
         .photo-caption {
@@ -267,6 +310,27 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+        }
+
+        .photo-caption::before {
+            content: '🖱️ Haz clic para ampliar';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #8B4513;
+            color: #FFD700;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+
+        .photo-frame:hover .photo-caption::before {
+            opacity: 1;
         }
 
         .photo-frame:nth-child(19) .photo-caption {
@@ -287,90 +351,14 @@
             }
         }
 
-        /* CONTADORES INTERACTIVOS */
-        .photo-counter {
-            position: absolute;
-            top: -15px;
-            right: -15px;
-            width: 50px;
-            height: 50px;
+        .photo-frame:nth-child(19) .photo-caption::before {
+            content: '🌟 ¡Foto Especial 18 Años! 🖱️';
             background: #FFD700;
-            border: 3px solid #8B4513;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            color: #FF6B6B;
             font-weight: bold;
-            font-size: 1.4rem;
-            color: #000;
-            z-index: 20;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            cursor: pointer;
-            transition: all 0.3s;
-            overflow: hidden;
         }
 
-        .photo-counter:hover {
-            transform: scale(1.2);
-            background: #FFA500;
-            box-shadow: 0 0 20px #FFD700;
-        }
-
-        .photo-counter.active {
-            transform: scale(1.3);
-            background: #FF6B6B;
-            color: white;
-            border-color: #FFD700;
-            box-shadow: 0 0 25px #FF6B6B;
-            animation: counterActive 0.5s;
-        }
-
-        @keyframes counterActive {
-            0%, 100% { transform: scale(1.3); }
-            50% { transform: scale(1.4); }
-        }
-
-        .counter-icon {
-            font-size: 0.8rem;
-            opacity: 0.8;
-            margin-top: 2px;
-        }
-
-        /* ESPECIAL PARA FOTO 35 */
-        .photo-frame:nth-child(19) .photo-counter {
-            width: 60px;
-            height: 60px;
-            background: #FF6B6B;
-            border-color: #FFD700;
-            color: white;
-            font-size: 1.8rem;
-            animation: specialCounterPulse 2s infinite;
-        }
-
-        .photo-frame:nth-child(19) .photo-counter:hover {
-            background: #FF3333;
-            transform: scale(1.3);
-        }
-
-        .photo-frame:nth-child(19) .counter-icon {
-            font-size: 1rem;
-            opacity: 1;
-        }
-
-        @keyframes specialCounterPulse {
-            0%, 100% { 
-                transform: scale(1);
-                box-shadow: 0 4px 15px rgba(255,107,107,0.6);
-            }
-            50% { 
-                transform: scale(1.1);
-                box-shadow: 0 0 25px rgba(255,107,107,0.9),
-                           0 0 35px rgba(255,215,0,0.7);
-            }
-        }
-
-        /* FOTO AMPLIADA */
+        /* FOTO AMPLIADA (OVERLAY) */
         .photo-zoom-overlay {
             position: fixed;
             top: 0;
@@ -411,6 +399,7 @@
             max-width: 100%;
             max-height: 80vh;
             display: block;
+            object-fit: contain;
         }
 
         .close-zoom {
@@ -436,6 +425,51 @@
         .close-zoom:hover {
             transform: scale(1.1);
             background: #FF3333;
+        }
+
+        .zoom-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* INSTRUCCIONES MEJORADAS */
+        .instructions {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 15px;
+            background: rgba(255, 215, 0, 0.9);
+            border-radius: 15px;
+            border: 3px solid #8B4513;
+            text-align: center;
+            color: #000;
+            font-weight: bold;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            animation: pulseInstructions 3s infinite;
+        }
+
+        @keyframes pulseInstructions {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
+            50% { 
+                transform: scale(1.02);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            }
+        }
+
+        .instruction-icon {
+            display: inline-block;
+            animation: bounce 1s infinite;
+            margin: 0 5px;
         }
 
         /* Resto del CSS se mantiene igual */
@@ -600,26 +634,6 @@
             }
         }
 
-        /* INSTRUCCIONES */
-        .instructions {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 15px;
-            background: rgba(255, 215, 0, 0.9);
-            border-radius: 15px;
-            border: 3px solid #8B4513;
-            text-align: center;
-            color: #000;
-            font-weight: bold;
-            font-size: clamp(1rem, 2vw, 1.2rem);
-        }
-
-        .instruction-icon {
-            display: inline-block;
-            animation: bounce 1s infinite;
-            margin: 0 5px;
-        }
-
         @media (max-width: 768px) {
             .photo-gallery {
                 grid-template-columns: 1fr;
@@ -636,47 +650,50 @@
             }
 
             .photo-frame img {
-                height: 300px;
+                height: 350px; /* Ajustado para móvil */
             }
 
             .photo-frame:nth-child(19) img {
-                height: 320px;
-                object-position: center 38%;
+                height: 370px; /* Un poco más alta en móvil */
             }
 
-            .photo-counter {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
+            .click-indicator {
+                width: 35px;
+                height: 35px;
+                font-size: 1.3rem;
             }
 
-            .photo-frame:nth-child(19) .photo-counter {
-                width: 50px;
-                height: 50px;
+            .photo-frame:nth-child(19) .click-indicator {
                 font-size: 1.5rem;
             }
 
-            .counter-icon {
+            .photo-caption::before {
                 font-size: 0.7rem;
-            }
-
-            .photo-frame:nth-child(19) .counter-icon {
-                font-size: 0.8rem;
+                top: -20px;
+                padding: 4px 10px;
             }
         }
 
         @media (max-width: 480px) {
-            .photo-counter {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
-                top: -12px;
-                right: -12px;
+            .photo-frame img {
+                height: 320px;
             }
 
-            .photo-frame:nth-child(19) .photo-counter {
-                width: 45px;
-                height: 45px;
+            .photo-frame:nth-child(19) img {
+                height: 340px;
+            }
+
+            .click-indicator {
+                width: 30px;
+                height: 30px;
+                font-size: 1.1rem;
+                top: 8px;
+                right: 8px;
+            }
+
+            .photo-frame:nth-child(19) .click-indicator {
+                width: 35px;
+                height: 35px;
                 font-size: 1.3rem;
             }
         }
@@ -692,8 +709,8 @@
         </iframe>
     </div>
 
-    <!-- Audio de fondo -->
-    <audio id="bgAudio" loop>
+    <!-- Audio de fondo - SE REPRODUCE AUTOMÁTICAMENTE -->
+    <audio id="bgAudio" loop autoplay>
         <source src="cumple.mp3" type="audio/mpeg">
         <source src="cumple.mp4" type="audio/mp4">
         <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3" type="audio/mpeg">
@@ -710,6 +727,7 @@
     <div class="photo-zoom-overlay" id="photoZoomOverlay">
         <div class="zoomed-photo-container">
             <img class="zoomed-photo" id="zoomedPhoto" src="" alt="">
+            <div class="zoom-caption" id="zoomCaption"></div>
         </div>
         <div class="close-zoom" id="closeZoom">✕</div>
     </div>
@@ -722,95 +740,117 @@
             <div class="age-display">18 AÑOS</div>
         </div>
 
-        <!-- Instrucciones -->
+        <!-- Instrucciones claras -->
         <div class="instructions">
-            <span class="instruction-icon">👉</span> ¡Haz clic en los números con iconos para ver las fotos de cerca! 
+            <span class="instruction-icon">👉</span> 
+            ¡Haz clic en cualquier foto para verla más grande! 
             <span class="instruction-icon">👆</span>
+            <br>
+            <small>La foto con marco rojo es especial para tus 18 años</small>
         </div>
 
-        <!-- Galería de fotos -->
+        <!-- Galería de fotos MEJORADA -->
         <div class="photo-gallery">
-            <!-- Las fotos se mantienen igual -->
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="2.jpeg" alt="Emmanuel bebé" loading="lazy">
                 <div class="photo-caption">💝 Cuando eras tan pequeñito... ¡Qué tiernos recuerdos!</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="3.jpeg" alt="Emmanuel con mamá" loading="lazy">
                 <div class="photo-caption">👨‍👦 Compartiendo tus primeros meses de vida</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="5.jpeg" alt="Emmanuel paseo" loading="lazy">
                 <div class="photo-caption">🚶‍♂️ Explorando el mundo, creando aventuras</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="8.jpeg" alt="Emmanuel niño" loading="lazy">
                 <div class="photo-caption">🎨 Tu creatividad siempre brillando</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="9.jpeg" alt="Emmanuel en casa" loading="lazy">
                 <div class="photo-caption">🏠 Los mejores momentos son en familia</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="10.jpeg" alt="Emmanuel pequeño" loading="lazy">
                 <div class="photo-caption">⭐ Cada día una nueva sonrisa</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="11.jpeg" alt="Emmanuel carrusel" loading="lazy">
                 <div class="photo-caption">🎠 Disfrutando la vida al máximo</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="12.jpeg" alt="Emmanuel centro comercial" loading="lazy">
                 <div class="photo-caption">🛍️ Momentos especiales de paseo</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="13.jpeg" alt="Emmanuel jugando" loading="lazy">
                 <div class="photo-caption">🎮 Tu pasión por los juegos comenzó aquí</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="15.jpeg" alt="Emmanuel caminando" loading="lazy">
                 <div class="photo-caption">🚶 Creciendo paso a paso, siempre fuerte</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="17.jpeg" alt="Emmanuel sonriente" loading="lazy">
                 <div class="photo-caption">😊 Tu sonrisa ilumina cada día</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="18.jpeg" alt="Emmanuel pose" loading="lazy">
                 <div class="photo-caption">📸 Con estilo propio desde siempre</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="22.jpeg" alt="Emmanuel cumpleaños" loading="lazy">
                 <div class="photo-caption">🎂 Celebrando otro año de bendiciones</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="23.jpeg" alt="Emmanuel relajado" loading="lazy">
                 <div class="photo-caption">😌 Disfrutando los momentos tranquilos</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="24.jpeg" alt="Emmanuel comiendo" loading="lazy">
                 <div class="photo-caption">🍽️ Siempre disfrutando la comida con alegría</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="26.jpeg" alt="Emmanuel cascada" loading="lazy">
                 <div class="photo-caption">🌊 Aventuras en familia, recuerdos inolvidables</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="29.jpeg" alt="Emmanuel mall" loading="lazy">
                 <div class="photo-caption">🏢 Creando memorias en cada lugar</div>
             </div>
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="30.jpeg" alt="Emmanuel adolescente" loading="lazy">
                 <div class="photo-caption">💪 Convirtiéndote en un gran joven</div>
             </div>
             
-            <!-- FOTO 35 - LA ESPECIAL -->
+            <!-- FOTO 35 - LA ESPECIAL CON INDICADOR ESPECIAL -->
             <div class="photo-frame">
+                <div class="click-indicator">🌟</div>
                 <img src="35.jpeg" alt="Emmanuel actual" loading="lazy">
                 <div class="photo-caption">🌟ERES UN JOVEN INCREÍBLE DE YA 18 AÑOS. ¡ME SIENTO MUY ORGULLOSO DE TI! 🌟</div>
             </div>
             
             <div class="photo-frame">
+                <div class="click-indicator">👁️</div>
                 <img src="grado.png" alt="Graduación" loading="lazy">
                 <div class="graduation-caption">
                     <span class="cap-icon">🎓</span> Este será otro gran logro en tu vida, Emmanuel. <span class="cap-icon">🎓</span>
@@ -818,7 +858,7 @@
             </div>
         </div>
 
-        <!-- Resto del contenido se mantiene igual -->
+        <!-- Resto del contenido -->
         <div class="video-section">
             <div class="video-title">🎮 VIDEO ESPECIAL MINECRAFT PARA EMMANUEL 🎮</div>
             <div class="video-container">
@@ -860,127 +900,113 @@
 
     <script>
         // ==============================
-        // CONFIGURACIÓN DE AUDIO
+        // CONFIGURACIÓN DE AUDIO AUTOMÁTICO
         // ==============================
         const bgAudio = document.getElementById('bgAudio');
         const audioControl = document.getElementById('audioControl');
         let audioPlaying = false;
-        let userInteracted = false;
 
-        function playAudio() {
+        // Configurar audio para reproducir automáticamente
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intentar reproducir inmediatamente
             bgAudio.volume = 0.7;
-            bgAudio.play().then(() => {
-                audioPlaying = true;
-                audioControl.textContent = '🔊';
-                audioControl.title = 'Pausar música';
-                console.log('✅ Audio iniciado');
-            }).catch(error => {
-                console.log('❌ Audio bloqueado');
-                audioControl.textContent = '🔇';
-                audioControl.title = 'Click para reproducir música';
-            });
-        }
-
-        function pauseAudio() {
-            bgAudio.pause();
-            audioPlaying = false;
-            audioControl.textContent = '🔇';
-            audioControl.title = 'Reproducir música';
-        }
-
-        audioControl.addEventListener('click', function() {
-            if (!userInteracted) userInteracted = true;
-            audioPlaying ? pauseAudio() : playAudio();
+            
+            // Usar una promesa para reproducción automática
+            const playPromise = bgAudio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    audioPlaying = true;
+                    audioControl.textContent = '🔊';
+                    audioControl.title = 'Pausar música';
+                    console.log('✅ Audio iniciado automáticamente');
+                }).catch(error => {
+                    console.log('⚠️ Audio no pudo reproducirse automáticamente, esperando interacción');
+                    audioControl.textContent = '🔇';
+                    audioControl.title = 'Reproducir música';
+                    
+                    // Intentar de nuevo cuando el usuario interactúe
+                    const userInteractionHandler = () => {
+                        bgAudio.play().then(() => {
+                            audioPlaying = true;
+                            audioControl.textContent = '🔊';
+                            audioControl.title = 'Pausar música';
+                            console.log('✅ Audio iniciado después de interacción');
+                        });
+                        document.removeEventListener('click', userInteractionHandler);
+                        document.removeEventListener('touchstart', userInteractionHandler);
+                    };
+                    
+                    document.addEventListener('click', userInteractionHandler);
+                    document.addEventListener('touchstart', userInteractionHandler);
+                });
+            }
         });
 
-        window.addEventListener('load', () => setTimeout(playAudio, 500));
-        document.addEventListener('click', () => {
-            if (!userInteracted) {
-                userInteracted = true;
-                if (!audioPlaying) playAudio();
+        // Control manual del audio
+        audioControl.addEventListener('click', function() {
+            if (audioPlaying) {
+                bgAudio.pause();
+                audioPlaying = false;
+                audioControl.textContent = '🔇';
+                audioControl.title = 'Reproducir música';
+            } else {
+                bgAudio.play().then(() => {
+                    audioPlaying = true;
+                    audioControl.textContent = '🔊';
+                    audioControl.title = 'Pausar música';
+                });
             }
         });
 
         // ==============================
-        // CONTADORES INTERACTIVOS
+        // ZOOM DE FOTOS
         // ==============================
-        window.addEventListener('load', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             const photoFrames = document.querySelectorAll('.photo-frame');
             const photoZoomOverlay = document.getElementById('photoZoomOverlay');
             const zoomedPhoto = document.getElementById('zoomedPhoto');
+            const zoomCaption = document.getElementById('zoomCaption');
             const closeZoom = document.getElementById('closeZoom');
             
-            // Iconos para los contadores
-            const icons = [
-                '👶', '❤️', '🚶', '🎨', '🏠', '⭐', '🎠', '🛍️', 
-                '🎮', '🚶', '😊', '📸', '🎂', '😌', '🍽️', '🌊', 
-                '🏢', '💪', '🌟', '🎓'
-            ];
-            
-            let activeCounter = null;
-            
-            // Agregar contadores a cada foto
-            photoFrames.forEach((frame, index) => {
-                const counter = document.createElement('div');
-                counter.className = 'photo-counter';
-                counter.innerHTML = `
-                    <div>${index + 1}</div>
-                    <div class="counter-icon">${icons[index]}</div>
-                `;
-                
-                // Efecto especial para la foto 35
-                if (index === 18) {
-                    counter.innerHTML = `
-                        <div>19</div>
-                        <div class="counter-icon">🎉</div>
-                    `;
-                }
-                
-                frame.appendChild(counter);
-                
-                // Evento para mostrar foto ampliada
-                counter.addEventListener('click', function(e) {
-                    e.stopPropagation();
+            // Agregar evento a cada foto
+            photoFrames.forEach(frame => {
+                frame.addEventListener('click', function(e) {
+                    // Obtener la imagen y su descripción
+                    const photoImg = this.querySelector('img');
+                    const caption = this.querySelector('.photo-caption, .graduation-caption');
                     
-                    // Quitar clase activa del contador anterior
-                    if (activeCounter) {
-                        activeCounter.classList.remove('active');
-                    }
-                    
-                    // Agregar clase activa al contador actual
-                    this.classList.add('active');
-                    activeCounter = this;
-                    
-                    // Obtener la imagen de la foto
-                    const photoImg = this.closest('.photo-frame').querySelector('img');
+                    // Configurar la imagen ampliada
                     zoomedPhoto.src = photoImg.src;
                     zoomedPhoto.alt = photoImg.alt;
                     
-                    // Mostrar overlay
+                    // Configurar el texto de la imagen ampliada
+                    if (caption) {
+                        zoomCaption.textContent = caption.textContent.replace(/🖱️.*/, '').trim();
+                    }
+                    
+                    // Mostrar el overlay
                     photoZoomOverlay.classList.add('active');
                     
-                    // Reproducir sonido
+                    // Reproducir sonido de clic
                     playClickSound();
+                    
+                    // Efecto especial para la foto 35
+                    if (this.querySelector('.click-indicator').textContent === '🌟') {
+                        playCelebrationSound();
+                    }
                 });
             });
             
             // Cerrar overlay
             closeZoom.addEventListener('click', function() {
                 photoZoomOverlay.classList.remove('active');
-                if (activeCounter) {
-                    activeCounter.classList.remove('active');
-                    activeCounter = null;
-                }
             });
             
             // Cerrar overlay al hacer clic fuera
             photoZoomOverlay.addEventListener('click', function(e) {
                 if (e.target === this) {
                     this.classList.remove('active');
-                    if (activeCounter) {
-                        activeCounter.classList.remove('active');
-                        activeCounter = null;
-                    }
                 }
             });
             
@@ -988,105 +1014,111 @@
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && photoZoomOverlay.classList.contains('active')) {
                     photoZoomOverlay.classList.remove('active');
-                    if (activeCounter) {
-                        activeCounter.classList.remove('active');
-                        activeCounter = null;
-                    }
                 }
             });
             
-            // Efecto de sonido al hacer clic
+            // Sonidos
             function playClickSound() {
                 try {
                     const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3');
-                    clickSound.volume = 0.3;
-                    clickSound.play().catch(e => console.log("Sonido bloqueado"));
+                    clickSound.volume = 0.2;
+                    clickSound.play();
                 } catch (e) {
-                    console.log("No se pudo reproducir el sonido");
+                    // Ignorar errores de sonido
                 }
-            }
-            
-            // Efecto especial para la foto 35
-            const photo35 = document.querySelector('.photo-frame:nth-child(19)');
-            if (photo35) {
-                photo35.addEventListener('mouseenter', function() {
-                    playCelebrationSound();
-                });
             }
             
             function playCelebrationSound() {
                 try {
                     const celebrationSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3');
-                    celebrationSound.volume = 0.2;
-                    celebrationSound.play().catch(e => console.log("Sonido bloqueado"));
+                    celebrationSound.volume = 0.1;
+                    celebrationSound.play();
                 } catch (e) {
-                    console.log("No se pudo reproducir el sonido");
+                    // Ignorar errores de sonido
                 }
+            }
+            
+            // Efecto especial al pasar el mouse sobre la foto 35
+            const photo35 = document.querySelector('.photo-frame:nth-child(19)');
+            if (photo35) {
+                photo35.addEventListener('mouseenter', function() {
+                    if (audioPlaying) {
+                        playCelebrationSound();
+                    }
+                });
             }
         });
 
         // ==============================
         // EFECTOS DECORATIVOS
         // ==============================
-        const colors = ['🎈', '🎉', '🎊', '⭐', '✨'];
-        const isMobile = window.innerWidth < 768;
-        const balloonCount = isMobile ? 18 : 30;
-        
-        for (let i = 0; i < balloonCount; i++) {
-            const balloon = document.createElement('div');
-            balloon.className = 'balloon';
-            balloon.textContent = colors[Math.floor(Math.random() * colors.length)];
-            balloon.style.left = Math.random() * 100 + '%';
-            balloon.style.animationDelay = Math.random() * 5 + 's';
-            balloon.style.animationDuration = (5 + Math.random() * 5) + 's';
-            document.body.appendChild(balloon);
-        }
-
-        const confettiColors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7', '#dfe6e9'];
-        const confettiCount = isMobile ? 25 : 60;
-        
-        for (let i = 0; i < confettiCount; i++) {
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.left = Math.random() * 100 + '%';
-            confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-            confetti.style.animationDelay = Math.random() * 3 + 's';
-            confetti.style.animationDuration = (3 + Math.random() * 2) + 's';
-            document.body.appendChild(confetti);
-        }
-
-        // Cambio de color del título
-        setInterval(() => {
-            const ageDisplay = document.querySelector('.age-display');
-            if (ageDisplay) {
-                ageDisplay.style.color = 
-                    ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7'][Math.floor(Math.random() * 5)];
-            }
-        }, 1000);
-
-        // ==============================
-        // VERIFICACIÓN DE IMÁGENES
-        // ==============================
         window.addEventListener('load', function() {
+            // Globos
+            const colors = ['🎈', '🎉', '🎊', '⭐', '✨'];
+            const isMobile = window.innerWidth < 768;
+            const balloonCount = isMobile ? 18 : 30;
+            
+            for (let i = 0; i < balloonCount; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.textContent = colors[Math.floor(Math.random() * colors.length)];
+                balloon.style.left = Math.random() * 100 + '%';
+                balloon.style.animationDelay = Math.random() * 5 + 's';
+                balloon.style.animationDuration = (5 + Math.random() * 5) + 's';
+                document.body.appendChild(balloon);
+            }
+
+            // Confetti
+            const confettiColors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7', '#dfe6e9'];
+            const confettiCount = isMobile ? 25 : 60;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (3 + Math.random() * 2) + 's';
+                document.body.appendChild(confetti);
+            }
+
+            // Cambio de color del título
+            setInterval(() => {
+                const ageDisplay = document.querySelector('.age-display');
+                if (ageDisplay) {
+                    ageDisplay.style.color = 
+                        ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7'][Math.floor(Math.random() * 5)];
+                }
+            }, 1000);
+
+            // Verificar imágenes
             const images = document.querySelectorAll('img');
             images.forEach(img => {
-                if (!img.complete || img.naturalWidth === 0) {
+                img.onerror = function() {
                     console.log(`⚠️ Imagen no cargada: ${img.src}`);
-                    img.style.backgroundColor = '#FFD700';
-                    img.style.display = 'flex';
-                    img.style.alignItems = 'center';
-                    img.style.justifyContent = 'center';
-                    img.style.color = '#000';
-                    img.style.fontSize = '16px';
-                    img.style.fontWeight = 'bold';
-                }
+                    this.style.backgroundColor = '#FFD700';
+                    this.style.display = 'flex';
+                    this.style.alignItems = 'center';
+                    this.style.justifyContent = 'center';
+                    this.style.color = '#000';
+                    this.style.fontSize = '16px';
+                    this.style.fontWeight = 'bold';
+                    this.style.padding = '20px';
+                    this.innerHTML = 'Foto no disponible<br><small>😢</small>';
+                };
             });
-            
-            setTimeout(() => {
-                if (!audioPlaying) {
-                    console.log('💡 Para activar la música, haz click en el botón 🔊 o en cualquier parte de la página');
-                }
-            }, 3000);
+        });
+
+        // Asegurar reproducción de audio en iOS
+        document.addEventListener('touchstart', function() {
+            if (!audioPlaying) {
+                bgAudio.play().then(() => {
+                    audioPlaying = true;
+                    audioControl.textContent = '🔊';
+                }).catch(e => {
+                    console.log('Esperando interacción para audio en iOS');
+                });
+            }
         });
     </script>
 </body>
