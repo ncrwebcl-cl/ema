@@ -533,31 +533,34 @@
         .video-section {
             max-width: 1000px;
             margin: 50px auto;
-            padding: 20px;
+            padding: 0;
             background: rgba(0,0,0,0.8);
             border-radius: 25px;
             border: 5px solid #FFD700;
             width: 100%;
             position: relative;
+            overflow: hidden;
         }
 
         .video-title {
             font-size: clamp(1.5rem, 4vw, 3rem);
             color: #FFD700;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 0;
+            padding: 15px 15px 10px;
             font-weight: bold;
             text-shadow: 3px 3px 0 #000;
             word-wrap: break-word;
+            background: rgba(0,0,0,0.8);
         }
 
         .video-audio-notice {
             background: rgba(255, 107, 107, 0.9);
             color: white;
             padding: 10px 15px;
-            border-radius: 15px;
+            border-radius: 0;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 0;
             font-weight: bold;
             font-size: 1rem;
             opacity: 0;
@@ -574,7 +577,7 @@
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 20px;
+            border-radius: 0;
             box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
 
@@ -585,6 +588,31 @@
             width: 100%;
             height: 100%;
             border: 0;
+        }
+
+        /* Botón de pantalla completa */
+        .fullscreen-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 100;
+            background: rgba(255, 215, 0, 0.9);
+            border: 2px solid #8B4513;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            color: #8B4513;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(255, 215, 0, 1);
+            transform: scale(1.1);
         }
 
         /* NOTIFICACIÓN DE AUDIO */
@@ -773,6 +801,16 @@
                 bottom: 15px;
                 width: 90%;
             }
+            
+            .video-section {
+                margin: 30px auto;
+                border-radius: 20px;
+            }
+            
+            .video-title {
+                padding: 12px 12px 8px;
+                font-size: clamp(1.3rem, 4vw, 2.5rem);
+            }
         }
 
         @media (max-width: 480px) {
@@ -810,6 +848,30 @@
                 font-size: 0.75rem;
                 padding: 6px 12px;
                 width: 95%;
+            }
+            
+            .video-section {
+                margin: 20px auto;
+                border-radius: 15px;
+                border-width: 4px;
+            }
+            
+            .video-title {
+                padding: 10px 10px 6px;
+                font-size: clamp(1.1rem, 4vw, 2rem);
+            }
+            
+            .video-audio-notice {
+                font-size: 0.9rem;
+                padding: 8px 10px;
+            }
+            
+            .fullscreen-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1.3rem;
+                top: 8px;
+                right: 8px;
             }
         }
     </style>
@@ -972,11 +1034,17 @@
 
         <!-- VIDEO DE YOUTUBE - REPRODUCE AL LLEGAR Y PAUSA EL AUDIO -->
         <div class="video-section" id="videoSection">
+            <div class="video-title">🎮 VIDEO ESPECIAL MINECRAFT PARA EMMANUEL 🎮</div>
+            
             <div class="video-audio-notice" id="videoAudioNotice">
                 🎬 El video iniciará automáticamente y la música de fondo se pausará
             </div>
             
-            <div class="video-title">🎮 VIDEO ESPECIAL MINECRAFT PARA EMMANUEL 🎮</div>
+            <!-- Botón de pantalla completa -->
+            <button class="fullscreen-btn" id="fullscreenBtn" title="Pantalla completa">
+                ⛶
+            </button>
+            
             <div class="video-container">
                 <!-- Video SIN autoplay inicial, se activa con JavaScript -->
                 <iframe 
@@ -1134,6 +1202,7 @@
         // ==============================
         const videoSection = document.getElementById('videoSection');
         const mainVideo = document.getElementById('mainVideo');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
         let videoStarted = false;
 
         // Observador para detectar cuando el usuario llega al video
@@ -1198,6 +1267,41 @@
         });
 
         videoExitObserver.observe(videoSection);
+
+        // ==============================
+        // BOTÓN DE PANTALLA COMPLETA
+        // ==============================
+        fullscreenBtn.addEventListener('click', function() {
+            const videoContainer = document.querySelector('.video-container');
+            if (videoContainer) {
+                if (videoContainer.requestFullscreen) {
+                    videoContainer.requestFullscreen();
+                } else if (videoContainer.webkitRequestFullscreen) {
+                    videoContainer.webkitRequestFullscreen();
+                } else if (videoContainer.msRequestFullscreen) {
+                    videoContainer.msRequestFullscreen();
+                }
+            }
+        });
+
+        // Detectar cambios en pantalla completa
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('msfullscreenchange', handleFullscreenChange);
+
+        function handleFullscreenChange() {
+            const isFullscreen = document.fullscreenElement || 
+                               document.webkitFullscreenElement || 
+                               document.msFullscreenElement;
+            
+            if (isFullscreen) {
+                fullscreenBtn.textContent = '🗕';
+                fullscreenBtn.title = 'Salir de pantalla completa';
+            } else {
+                fullscreenBtn.textContent = '⛶';
+                fullscreenBtn.title = 'Pantalla completa';
+            }
+        }
 
         // ==============================
         // ANIMACIONES ESPECIALES PARA FOTO 35
