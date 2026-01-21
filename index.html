@@ -204,7 +204,7 @@
 
         .slide-caption {
             color: white;
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-size: clamp(1.5rem, 4vw, 2rem); /* AUMENTADO */
             text-align: center;
             margin-top: 25px;
             padding: 20px;
@@ -254,7 +254,7 @@
             border-radius: 50%;
             width: 70px;
             height: 70px;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             color: #8B4513;
             cursor: pointer;
             display: flex;
@@ -263,12 +263,71 @@
             transition: all 0.3s;
             opacity: 0.9;
             z-index: 3;
+            font-weight: bold;
+            position: relative;
         }
 
         .slide-btn:hover {
             transform: scale(1.15);
             background: rgba(255, 215, 0, 1);
             opacity: 1;
+        }
+
+        /* TEXTO EN LOS BOTONES DE PRESENTACIÓN */
+        .btn-text {
+            font-size: 0.9rem;
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(0,0,0,0.8);
+            padding: 5px 12px;
+            border-radius: 15px;
+            white-space: nowrap;
+            border: 2px solid #FFD700;
+            font-weight: bold;
+            animation: fadeIn 0.5s;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        #prevBtn::after {
+            content: 'Anterior';
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(0,0,0,0.8);
+            padding: 5px 12px;
+            border-radius: 15px;
+            white-space: nowrap;
+            border: 2px solid #FFD700;
+            font-weight: bold;
+            font-size: 0.9rem;
+            animation: fadeIn 0.5s;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        #nextBtn::after {
+            content: 'Siguiente';
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(0,0,0,0.8);
+            padding: 5px 12px;
+            border-radius: 15px;
+            white-space: nowrap;
+            border: 2px solid #FFD700;
+            font-weight: bold;
+            font-size: 0.9rem;
+            animation: fadeIn 0.5s;
+            pointer-events: none;
+            z-index: 10;
         }
 
         .start-presentation {
@@ -1018,12 +1077,12 @@
             }
         }
 
-        /* Textos de las fotos */
+        /* Textos de las fotos - AUMENTADO EL TAMAÑO */
         .photo-caption {
             padding: 18px;
             background: #FFD700;
             color: #000;
-            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-size: clamp(1.3rem, 3vw, 1.6rem); /* AUMENTADO DE 1rem a 1.3rem */
             font-weight: bold;
             text-align: center;
             line-height: 1.6;
@@ -1040,7 +1099,7 @@
             background: linear-gradient(45deg, #FF6B6B, #FF3333, #FF6B6B);
             background-size: 200% 200%;
             color: #FFF;
-            font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+            font-size: clamp(1.4rem, 3.2vw, 1.7rem); /* AUMENTADO */
             font-weight: bold;
             border-top: 4px solid #FFD700;
             animation: captionGradient 3s infinite linear;
@@ -1251,7 +1310,7 @@
             padding: 20px;
             background: #FFD700;
             color: #000;
-            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-size: clamp(1.3rem, 3vw, 1.6rem); /* AUMENTADO */
             font-weight: bold;
             text-align: center;
             line-height: 1.7;
@@ -1371,14 +1430,21 @@
             }
             
             .slide-caption {
-                font-size: clamp(1rem, 3vw, 1.5rem);
+                font-size: clamp(1.2rem, 3.5vw, 1.8rem); /* AUMENTADO */
                 padding: 15px;
             }
             
             .slide-btn {
                 width: 55px;
                 height: 55px;
-                font-size: 2rem;
+                font-size: 1.6rem;
+            }
+            
+            /* TEXTO EN BOTONES MÓVIL */
+            #prevBtn::after, #nextBtn::after {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+                bottom: -35px;
             }
             
             .slide-counter {
@@ -1507,15 +1573,22 @@
             }
             
             .slide-caption {
-                font-size: clamp(0.9rem, 3vw, 1.2rem);
+                font-size: clamp(1.1rem, 3.5vw, 1.5rem); /* AUMENTADO */
                 padding: 12px;
             }
             
             .slide-btn {
                 width: 45px;
                 height: 45px;
-                font-size: 1.5rem;
+                font-size: 1.3rem;
                 padding: 0 5px;
+            }
+            
+            /* TEXTO EN BOTONES MÓVIL PEQUEÑO */
+            #prevBtn::after, #nextBtn::after {
+                font-size: 0.7rem;
+                padding: 3px 8px;
+                bottom: -30px;
             }
             
             .slide-counter {
@@ -2093,9 +2166,15 @@
             if (n === totalSlides - 1) {
                 document.getElementById('nextBtn').textContent = '🎉 Finalizar 🎉';
                 document.getElementById('nextBtn').style.fontSize = '1.8rem';
+                document.getElementById('nextBtn').style.width = 'auto';
+                document.getElementById('nextBtn').style.padding = '10px 20px';
+                document.getElementById('nextBtn').style.borderRadius = '30px';
             } else {
                 document.getElementById('nextBtn').textContent = '›';
-                document.getElementById('nextBtn').style.fontSize = '2.5rem';
+                document.getElementById('nextBtn').style.fontSize = '1.8rem';
+                document.getElementById('nextBtn').style.width = '';
+                document.getElementById('nextBtn').style.padding = '';
+                document.getElementById('nextBtn').style.borderRadius = '50%';
             }
         }
 
